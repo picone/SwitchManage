@@ -1,0 +1,19 @@
+.content {
+    padding: 60px 3%;
+}
+
+.addboder {
+    border: 1px solid red;
+}
+
+.navbar-swich {
+    background-color: #1F1919;
+
+}
+
+.navbar-swich *{
+    color: #ffffff;
+}
+.icon-bar{
+    background: #ffffff;
+}
