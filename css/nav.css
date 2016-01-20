@@ -6,14 +6,14 @@
     border: 1px solid red;
 }
 
-.navbar-swich {
-    background-color: #1F1919;
-
+/*.navbar-title{
+    padding-left: 2%;
 }
+#top-navbar{
+    padding:0 4%;
 
-.navbar-swich *{
-    color: #ffffff;
-}
-.icon-bar{
-    background: #ffffff;
+}*/
+
+.navbar-switch {
+    padding: 0 4%;
 }

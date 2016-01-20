@@ -11,11 +11,10 @@
     <script type="text/javascript" src="../js/index.js"></script>
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/nav.css"/>
-
 </head>
 <body>
 <!--top sidebar begin-->
-<nav class="navbar navbar-swich navbar-fixed-top " role="navigation"><!--alwaays top-->
+<nav class="navbar  navbar-inverse navbar-fixed-top navbar-switch" role="navigation"><!--alwaays top-->
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar">
             <span class="icon-bar"></span>
@@ -23,23 +22,24 @@
             <span class="icon-bar"></span>
             <!--导航栏图标-->
         </button>
-        <a class="navbar-brand" href="#">交换机管理系统</a>
+        <a class="navbar-brand navbar-title" href="#">交换机管理系统</a>
     </div>
     <div class="collapse navbar-collapse" id="top-navbar"><!--colsace折叠组jian-->
         <ul class="nav navbar-nav navbar-left ">
-            <li><a href="index.html"><span>首页</span></a></li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>交换机列表<!--<b
-                    class="caret"></b> --></span></a>
-                <!--  <ul class="dropdown-menu">
-                      <li><a href="">东区</a></li>
-                      <li><a href="">西区</a></li>
-                  </ul>-->
-            </li>
+            <li class="active"><a href="index.html"><span>首页</span></a></li>
+            <li><a href="switchlist.html"><span>交换机列表</span></a></li>
+            <!--     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>交换机列表<b
+                         class="caret"></b> </span></a>
+                       <ul class="dropdown-menu">
+                           <li><a href="">东区</a></li>
+                           <li><a href="">西区</a></li>
+                       </ul>
+                 </li>-->
             <li class=""><a href="index.html"><span>交换机管理</span></a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" id="">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员<b class="caret"></b></a><!--dropdown father-->
+            <li class="dropdown ">
+                <a href="#" class="dropdown-toggle " data-toggle="dropdown">管理员<b class="caret"></b></a><!--dropdown father-->
                 <ul class="dropdown-menu"><!--main dropdown menu-->
                     <li><a href="#">系统设置</a></li>
                     <!--修改密码-->
@@ -213,7 +213,31 @@
 
             </div>
         </div>
-        <div class="col-sm-4 col-xs-12"></div>
+        <div class="col-sm-4 col-xs-12">
+            <div id="search-panel" class="panel panel-primary">
+                <div class="panel-heading ">
+                    <div class="panel-title text-center">
+                        <span class="text-center">快速查询</span>
+                        <span class="pull-right">
+                            <a data-target="#search-panel-body" data-toggle="collapse"
+                               style="color: #ffffff ;cursor: pointer;"><span
+                                    class="glyphicon glyphicon-minus"></span></a>
+                            <!--<span class="glyphicon glyphicon-remove"></span>-->
+                    </span>
+                    </div>
+                </div>
+                <div id="search-panel-body" class="collapse in">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
     </div>
 
