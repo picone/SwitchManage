@@ -3,14 +3,16 @@
 <head lang="zh-CN">
     <meta charset="UTF-8">
     <title>首页</title>
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="../css/nav.css"/>
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/Chart.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/nav.css"/>
 </head>
 <body>
 <!--top sidebar begin-->
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-swich navbar-fixed-top " role="navigation"><!--alwaays top-->
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar">
             <span class="icon-bar"></span>
@@ -21,8 +23,8 @@
         <a class="navbar-brand" href="#">SwichManage</a>
     </div>
     <div class="collapse navbar-collapse" id="top-navbar"><!--colsace折叠组jian-->
-        <ul class="nav navbar-nav navbar-left">
-            <li class="active"><a href="index.html"><span>首页</span></a></li>
+        <ul class="nav navbar-nav navbar-left ">
+            <li><a href="index.html"><span>首页</span></a></li>
             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>交换机列表<b
                     class="caret"></b> </span></a>
                 <ul class="dropdown-menu">
@@ -34,7 +36,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right" id="">
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员<b class="caret"></b> </a><!--dropdown father-->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">管理员<b class="caret"></b></a><!--dropdown father-->
                 <ul class="dropdown-menu"><!--main dropdown menu-->
                     <li><a href="#">系统设置</a></li>
                     <!--修改密码-->
@@ -43,13 +45,177 @@
                 </ul>
             </li>
         </ul>
-
     </div>
 </nav>
 
-
 <!--top sidebar end-->
+
+<div class="content" style="min-height: 1000px">
+    <ul class="breadcrumb">
+        <li><a href="#">首页</a> <span class="divider">/</span></li>
+    </ul>
+    <div class="row">
+        <div class="col-sm-4 col-xs-12"><!--total situation -->
+            <div id="canvas-holder" class="panel panel-primary">
+                <div class="panel-heading ">
+                    <div class="panel-title text-center">
+                        <span class="text-center">交换机概况</span>
+                        <span class=" pull-right">
+                            <a data-target="#total-panel-body" data-toggle="collapse" style="color: #ffffff"><span
+                                    class="glyphicon glyphicon-minus" id="total-hide"></span></a>
+                            <span class="glyphicon glyphicon-remove" id="total-close"></span>
+                    </span>
+                    </div>
+                </div>
+                <div id="total-panel-body" class="collapse in">
+                    <div class=" panel-body  ">
+                        <canvas id="switch-total" width="250" height="250"></canvas>
+                    </div>
+                    <div class="panel-footer">
+                        共有<b id="title"></b>台交换机
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4  col-xs-12">
+            <div id="down-list" class="panel panel-primary">
+                <div class="panel-heading ">
+                    <div class="panel-title text-center">
+                        <span class="text-center">宕机列表</span>
+                        <span class="pull-right">
+                            <a data-target="#down-panel-body" data-toggle="collapse" style="color: #ffffff"><span
+                                    class="glyphicon glyphicon-minus"></span></a>
+                            <span class="glyphicon glyphicon-remove"></span>
+                    </span>
+                    </div>
+                </div>
+                <div id="down-panel-body" class="collapse in">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <caption>宕机列表</caption>
+                                <thead>
+                                <tr>
+                                    <th>区域</th>
+                                    <th>ip</th>
+                                    <th>持续时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4 col-xs-12"></div>
+
+    </div>
+
+
+</div>
 
 
 </body>
+
 </html>
