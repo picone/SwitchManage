@@ -1,4 +1,86 @@
-<include file="Public/header"/>
-<include file="Public/nav"/>
+<extend name="Public:base"/>
+<block name="title">首页</block>
+<block name="extern_css">
+    <link rel="stylesheet" href="__PUBLIC__/css/nav.css"/>
+</block>
+<block name="nav"><include file="Public:nav"/></block>
+<block name="container">
+    <ul class="breadcrumb">
+        <li><a href="#">首页</a> <span class="divider">/</span></li>
+    </ul>
+    <div class="row">
+        <div class="col-sm-4 col-xs-12"><!--total situation -->
+            <div id="canvas-holder" class="panel panel-primary">
+                <div class="panel-heading ">
+                    <div class="panel-title text-center">
+                        <span class="text-center">交换机概况</span>
+                        <span class=" pull-right">
+                            <a data-target="#total-panel-body" data-toggle="collapse" style="color: #ffffff; cursor: pointer;">
+                                <span class="glyphicon glyphicon-minus" id="total-hide"></span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div id="total-panel-body" class="collapse in">
+                    <div class=" panel-body  ">
+                        <canvas id="switch-total" width="250" height="250"></canvas>
+                    </div>
+                    <div class="panel-footer">
+                        共有<b id="title"></b>台交换机
+                    </div>
+                </div>
 
-<include file="Public/footer"/>
+            </div>
+        </div>
+        <div class="col-sm-4  col-xs-12">
+            <div id="down-list" class="panel panel-primary">
+                <div class="panel-heading ">
+                    <div class="panel-title text-center">
+                        <span class="text-center">宕机列表</span>
+                        <span class="pull-right">
+                            <a data-target="#down-panel-body" data-toggle="collapse" style="color: #ffffff ;cursor: pointer;">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div id="down-panel-body" class="collapse in">
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <caption>宕机列表</caption>
+                                <thead>
+                                <tr>
+                                    <th>区域</th>
+                                    <th>ip</th>
+                                    <th>持续时间</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                <tr>
+                                    <td>东区</td>
+                                    <td>1.1.1.1</td>
+                                    <td>1h</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4 col-xs-12"></div>
+    </div>
+</block>
+<block name="extern_js">
+    <script type="text/javascript" src="../js/Chart.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
+</block>
