@@ -1,0 +1,10 @@
+body {
+    background: url(../images/login_bg.jpg) no-repeat 0 0;
+}
+
+#login-form {
+    position: absolute;
+    top: 20%;
+}
+
+
