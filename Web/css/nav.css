@@ -3,7 +3,7 @@
 }
 
 .addboder {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
 }
 
 /*.navbar-title{
@@ -16,4 +16,9 @@
 
 .navbar-switch {
     padding: 0 4%;
+}
+
+#contrList label {
+    margin-bottom: 1%;
+    /*margin-right: 1px;*/
 }

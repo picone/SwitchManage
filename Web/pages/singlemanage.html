@@ -2,7 +2,7 @@
 <html>
 <head lang="zh-CN">
     <meta charset="UTF-8">
-    <title>交换机列表</title>
+    <title>交换机管理</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
@@ -11,7 +11,6 @@
     <script type="text/javascript" src="../js/index.js"></script>
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/nav.css"/>
-
 </head>
 <body>
 <!--top sidebar begin-->
@@ -29,7 +28,7 @@
         <ul class="nav navbar-nav navbar-left ">
             <li><a href="index.html"><span>首页</span></a></li>
             <li class="active"><a href="switchlist.html"><span>交换机列表</span></a></li>
-            <li class=""><a href="switchmanage.html"><span>交换机管理</span></a></li>
+            <li><a href="switchmanage.html"><span>交换机管理</span></a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" id="">
             <li class="dropdown ">
@@ -48,41 +47,22 @@
 <div class="content">
     <ul class="breadcrumb">
         <!--<li><a href="index.html">首页</a> <span class="divider">/</span></li>-->
-        <li><a href="switchlist.html">交换机列表</a> <span class="divider">/</span></li>
+        <li><a href="switchlist.html">交换机列表</a> <!--<span class="divider">/</span>--></li>
+        <li><a href="#">单个交换机配置</a> <span class="divider">/</span></li>
     </ul>
     <!--面包屑-->
-    <div class="row">
-        <div class="col-xs-12 col-sm-6">
-            <div class="list-group">
-                <a class="list-group-item" href="#">192.168.1.1<span class="badge alert-danger">down</span></a>
-                <a class="list-group-item" href="#">192.168.2.1<span class="badge alert-danger">down</span></a>
-                <a class="list-group-item">192.168.3.1<span class="badge alert-danger">down</span></a>
-                <a class="list-group-item">192.168.4.1<span class="badge alert-danger">down</span></a>
-                <a class="list-group-item ">192.168.5.1<span class="badge alert-success">up</span></a>
-                <a class="list-group-item">
-                    <div class="list-group-item-heading">192.168.5.1<span
-                            class="badge alert-danger pull-right">down</span>
-                    </div>
-                    <!--<div class="list-group-item-text">down at least 20min</div>-->
-                </a>
-            </div>
-        </div>
-        <!--在手机不显示-->
-        <div class="hidden-xs col-sm-6">
-            <div class="list-group ">
-                <div class="list-group-item ">型号</div>
-                <div class="list-group-item ">运行时间</div>
-                <div class="list-group-item ">cpu</div>
-                <div class="list-group-item ">温度</div>
-                <div class="list-group-item ">在线用户数</div>
-                <a class="list-group-item" href="singlemanage.html">
-                    <div class="list-group-item-heading text-center">更多</div>
-                </a>
-            </div>
+    <div class="container-fluid">
+        <div class="list-group ">
+            <div class="list-group-item">型号</div>
+            <div class="list-group-item ">运行时间</div>
+            <div class="list-group-item ">cpu</div>
+            <div class="list-group-item ">温度</div>
+            <div class="list-group-item ">在线用户数</div>
+            .....
         </div>
 
     </div>
-</div>
+
 </div>
 
 
