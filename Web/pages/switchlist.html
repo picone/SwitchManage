@@ -8,7 +8,7 @@
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.js"></script>
     <script type="text/javascript" src="../js/Chart.js"></script>
-    <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../js/switchlist.js"></script>
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/nav.css"/>
 
@@ -53,32 +53,32 @@
     <!--面包屑-->
     <div class="row">
         <div class="col-xs-12 col-sm-6">
-            <div class="list-group">
+            <div class="list-group" id="List">
                 <a class="list-group-item" href="#">192.168.1.1<span class="badge alert-danger">down</span></a>
                 <a class="list-group-item" href="#">192.168.2.1<span class="badge alert-danger">down</span></a>
-                <a class="list-group-item">192.168.3.1<span class="badge alert-danger">down</span></a>
-                <a class="list-group-item">192.168.4.1<span class="badge alert-danger">down</span></a>
-                <a class="list-group-item ">192.168.5.1<span class="badge alert-success">up</span></a>
-                <a class="list-group-item">
+                <a class="list-group-item" href="#">192.168.3.1<span class="badge alert-danger">down</span></a>
+                <a class="list-group-item" href="#">192.168.4.1<span class="badge alert-danger">down</span></a>
+                <a class="list-group-item " href="#">192.168.5.1<span class="badge alert-success">up</span></a>
+                <!--<a class="list-group-item" href="#">
                     <div class="list-group-item-heading">192.168.5.1<span
                             class="badge alert-danger pull-right">down</span>
                     </div>
                     <!--<div class="list-group-item-text">down at least 20min</div>-->
-                </a>
+                </a>-->
             </div>
         </div>
         <!--在手机不显示-->
-        <div class="hidden-xs col-sm-6">
-            <div class="list-group ">
-                <div class="list-group-item ">型号</div>
-                <div class="list-group-item ">运行时间</div>
-                <div class="list-group-item ">cpu</div>
+        <div class="hidden-xs col-sm-6" id="swState">
+            <form class="list-group ">
+                <div class="list-group-item " name="type">型号</div>
+                <div class="list-group-item " name="time">运行时间</div>
+                <div class="list-group-item " name="cpu">cpu</div>
                 <div class="list-group-item ">温度</div>
                 <div class="list-group-item ">在线用户数</div>
                 <a class="list-group-item" href="singlestate.html">
                     <div class="list-group-item-heading text-center">更多</div>
                 </a>
-            </div>
+            </form>
         </div>
 
     </div>
