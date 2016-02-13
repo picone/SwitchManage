@@ -6,6 +6,7 @@ class UserModel extends \Think\Model{
         'id','username','password','real_name'
     );
     protected $pk='id';
+    protected $autoinc=true;
 
     public function checkPassword($username,$password){
         $data=$this->field('id,password,real_name')->where(array('username'=>$username))->find();
