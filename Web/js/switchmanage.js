@@ -14,8 +14,8 @@ $(function () {
         alert("选择了" + list.length + "台交换机:" + chosenData);
 
     });
-
-    /*    jQuery.each(jQuery("input[name='switch']:checkbox"),function (i,item){
+    /*
+     jQuery.each(jQuery("input[name='switch']:checkbox"),function (i,item){
      jQuery(item).change(function(){
 
      })
