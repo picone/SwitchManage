@@ -9,6 +9,10 @@ $(function () {
                 window.location=data.data.url;
             }else{
                 alert(data.msg);
+                if(data.code==5){
+                    $('#verify_img').trigger('click');
+                    $('#verify_code').val('').focus();
+                }
                 return false;
             }
         });
