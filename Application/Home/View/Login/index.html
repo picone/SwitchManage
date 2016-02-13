@@ -1,0 +1,34 @@
+<extend name="Public:base"/>
+<block name="title">系统登录</block>
+<block name="extern_css">
+    <link rel="stylesheet" href="__PUBLIC__/css/login.css"/>
+</block>
+<block name="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-4 col-md-offset-4" id="login-form">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <h3 class="text-center">交换机管理平台</h3>
+                    <hr>
+                </div>
+                <div class="login-content col-xs-10 col-xs-offset-1">
+                    <form class="form-horizontal" role="form" action="__APP__/Login/login" id="form" method="post">
+                        <div class="form-group">
+                            <input type="text" id="username" name="username" class="form-control" placeholder="用户名" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="密码" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-block btn-info">登录</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="extern_js">
+    <script type="text/javascript" src="__PUBLIC__/js/jquery.ajaxform.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/login.js"></script>
+</block>
