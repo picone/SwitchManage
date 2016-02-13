@@ -1,0 +1,47 @@
+<extend name="Public:base"/>
+<block name="title">首页</block>
+<block name="extern_css">
+    <link rel="stylesheet" href="__PUBLIC__/css/nav.css"/>
+</block>
+<block name="nav"><include file="Public:nav"/></block>
+<block name="container">
+    <div class="content">
+        <ul class="breadcrumb">
+            <li><a href="#">交换机列表</a> <span class="divider">/</span></li>
+        </ul>
+        <!--面包屑-->
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="list-group" id="List">
+                    <a class="list-group-item" href="#">192.168.1.1<span class="badge alert-danger">down</span></a>
+                    <a class="list-group-item" href="#">192.168.2.1<span class="badge alert-danger">down</span></a>
+                    <a class="list-group-item" href="#">192.168.3.1<span class="badge alert-danger">down</span></a>
+                    <a class="list-group-item" href="#">192.168.4.1<span class="badge alert-danger">down</span></a>
+                    <a class="list-group-item " href="#">192.168.5.1<span class="badge alert-success">up</span></a>
+                    <!--<a class="list-group-item" href="#">
+                        <div class="list-group-item-heading">192.168.5.1<span
+                                class="badge alert-danger pull-right">down</span>
+                        </div>
+                        <!--<div class="list-group-item-text">down at least 20min</div>-->
+                    </a>-->
+                </div>
+            </div>
+            <!--在手机不显示-->
+            <div class="hidden-xs col-sm-6" id="swState">
+                <form class="list-group ">
+                    <div class="list-group-item " name="type">型号</div>
+                    <div class="list-group-item " name="time">运行时间</div>
+                    <div class="list-group-item " name="cpu">cpu</div>
+                    <div class="list-group-item ">温度</div>
+                    <div class="list-group-item ">在线用户数</div>
+                    <a class="list-group-item" href="__APP__/{$Think.CONTROLLER_NAME}/detail">
+                        <div class="list-group-item-heading text-center">更多</div>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="extern_js">
+    <script type="text/javascript" src="__PUBLIC__/js/Chart.js"></script>
+</block>

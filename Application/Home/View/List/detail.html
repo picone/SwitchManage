@@ -1,0 +1,30 @@
+<extend name="Public:base"/>
+<block name="title">首页</block>
+<block name="extern_css">
+    <link rel="stylesheet" href="__PUBLIC__/css/nav.css"/>
+</block>
+<block name="nav"><include file="Public:nav"/></block>
+<block name="container">
+    <div class="content">
+        <ul class="breadcrumb">
+            <li><a href="__APP__/{$Think.CONTROLLER_NAME}">交换机列表</a> <!--<span class="divider">/</span>--></li>
+            <li><a href="#">单个交换机状态</a> <span class="divider">/</span></li>
+        </ul>
+        <!--面包屑-->
+        <div class="container-fluid">
+            <div class="list-group ">
+                <div class="list-group-item">型号</div>
+                <div class="list-group-item ">运行时间</div>
+                <div class="list-group-item ">cpu</div>
+                <div class="list-group-item ">温度</div>
+                <div class="list-group-item ">在线用户数</div>
+                .....
+            </div>
+            跳转到配置
+        </div>
+    </div>
+</block>
+<block name="extern_js">
+    <script type="text/javascript" src="__PUBLIC__/js/Chart.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/switchlist.js"></script>
+</block>
