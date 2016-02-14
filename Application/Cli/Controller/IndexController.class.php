@@ -2,21 +2,35 @@
 namespace Cli\Controller;
 class IndexController extends \Think\Controller{
 
+    const PING_INTERVAL=60000;
+
     private $conn;
 
     public function index(){
-        $server=new \swoole_server('127.0.0.1',9502);
+        $server=new \swoole_server('127.0.0.1',9501);
         $server->set(array(
             'task_worker_num'=>2,
             'daemonize'=>false,
             'max_request'=>1024,
             'debug_mode'=>1
         ));
+        $server->on('WorkerStart',array($this,'onWorkerStart'));
+        $server->on('Timer',array($this,'onTimer'));
         $server->on('Receive',array($this,'onReceive'));
         $server->on('Task',array($this,'onTask'));
         $server->on('Finish',array($this,'onFinish'));
         $this->conn=array();
         $server->start();
+    }
+
+    public function onWorkerStart(\swoole_server $server,$worker_id){
+        $server->addtimer(self::PING_INTERVAL);//增加定时ping
+    }
+
+    public function onTimer(\swoole_server $server,$interval){
+        if($interval==self::PING_INTERVAL){
+
+        }
     }
 
     public function onReceive(\swoole_server $server,$fd,$from_id,$data){

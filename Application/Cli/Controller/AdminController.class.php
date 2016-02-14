@@ -4,25 +4,30 @@ class AdminController extends \Think\Controller{
     public function generate_ip(){
         $data=D('Device')->fetchAll();
         $filename=DATA_PATH.'ip_list.txt';
-        $fp=fopen($filename,'w');
-        foreach($data as &$val){
-            fwrite($fp,long2ip($val['ip']).PHP_EOL);
-        }
-        fclose($fp);
+        array_walk($data,function(&$val){
+            $val=$val['ip'];
+        });
+        D('Fping')->generateIp($data,$filename);
         echo readfile($filename);
     }
 
     public function fping(){
-        $filename=DATA_PATH.'ip_list.txt';
-        if(file_exists($filename)){
-            exec('/usr/bin/fping -eaqf '.$filename,$result,$status);
-            if($status==0){
-                print_r($result);
-            }else{
-                echo '错误:',$status,PHP_EOL;
+        $res=D('Fping')->fping(DATA_PATH.'ip_list.txt');
+        if(is_array($res)){
+            D('Device')->startTrans();
+            foreach($res as $key=>&$val){
+                if($val>=0){
+                    echo $key,':',$val,'ms',PHP_EOL;
+                }else{
+                    echo $key,':unreachable',PHP_EOL;
+                }
+                D('Device')->setVal($key,$val);
             }
-        }else{
+            D('Device')->commit();
+        }else if($res==-1){
             echo '请先生成IP列表',PHP_EOL;
+        }else{
+            echo '错误:',$res,PHP_EOL;
         }
     }
 }

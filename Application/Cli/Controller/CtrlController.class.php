@@ -6,7 +6,7 @@ class CtrlController extends \Think\Controller{
 
     public function _initialize(){
         $this->client=new \swoole_client(SWOOLE_SOCK_TCP);
-        if(!$this->client->connect('127.0.0.1',9502)){
+        if(!$this->client->connect('127.0.0.1',9501)){
             echo '连接失败:',$this->client->errCode,PHP_EOL;
             $this->client=null;
         }
