@@ -9,6 +9,7 @@ class VariablesBehavior extends \Think\Behavior{
         $GLOBALS['user_id']=intval($_SESSION['user_id']);
         if($GLOBALS['user_id']>0){
             $GLOBALS['username']=$_SESSION['username'];
+            $GLOBALS['real_name']=$_SESSION['real_name'];
         }else{//未登录
             if(!$this->checkAccess())redirect(__APP__.'/Login');
         }
