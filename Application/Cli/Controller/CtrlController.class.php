@@ -15,7 +15,12 @@ class CtrlController extends \Think\Controller{
     public function stop(){
         if($this->client!=null){
             $this->client->send('Stop');
-            echo $this->client->recv();
+            if($this->client->recv()=='success'){
+                echo '关闭成功';
+            }else{
+                echo '服务无响应';
+            }
+            echo PHP_EOL;
             $this->client->close();
         }
     }
@@ -23,7 +28,12 @@ class CtrlController extends \Think\Controller{
     public function stats(){
         if($this->client!=null){
             $this->client->send('Stats');
-            echo $this->client->recv();
+            $data=json_decode($this->client->recv(),true);
+            echo '服务启动时间',date('Y-m-d H:i:s',$data['start_time']),PHP_EOL;
+            echo '当前连接数量',$data['connection_num'],PHP_EOL;
+            echo '接受的链接数',$data['accept_count'],PHP_EOL;
+            echo '关闭的连接数',$data['close_count'],PHP_EOL;
+            echo '当前正在排队的任务数',$data['tasking_num'],PHP_EOL;
             $this->client->close();
         }
     }
@@ -31,7 +41,24 @@ class CtrlController extends \Think\Controller{
     public function reload(){
         if($this->client!=null){
             $this->client->send('Reload');
-            echo $this->client->recv();
+            if($this->client->recv()=='success'){
+                echo '重启成功';
+            }else{
+                echo '服务无响应';
+            }
+            echo PHP_EOL;
+            $this->client->close();
+        }
+    }
+
+    public function reset_telnet(){
+        if($this->client!=null){
+            $this->client->send('ResetTelnet');
+            if($this->client->recv()=='success'){
+
+            }else{
+
+            }
             $this->client->close();
         }
     }

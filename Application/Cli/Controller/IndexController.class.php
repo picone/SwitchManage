@@ -1,5 +1,7 @@
 <?php
 namespace Cli\Controller;
+use Cli\Model\TelnetModel;
+
 class IndexController extends \Think\Controller{
 
     const INTERVAL_PING=60000;
@@ -15,7 +17,6 @@ class IndexController extends \Think\Controller{
             'heartbeat_idle_time'=>60
         ));
         $server->on('WorkerStart',array($this,'onWorkerStart'));
-        $server->on('Timer',array($this,'onTimer'));
         $server->on('Receive',array($this,'onReceive'));
         $server->on('Task',array($this,'onTask'));
         $server->on('Finish',array($this,'onFinish'));
@@ -36,30 +37,30 @@ class IndexController extends \Think\Controller{
         }
     }
 
-    public function onTimer(\swoole_server $server,$interval){
-        if($interval==self::INTERVAL_PING){
-            $server->task('Ping');
-        }
-    }
-
     public function onReceive(\swoole_server $server,$fd,$from_id,$data){
         $data=trim($data);
-        if($data=='Stop'){
+        if($data=='Stop'){//停止
             $server->shutdown();
-            $server->send($fd,'已发送关闭命令'.PHP_EOL,$from_id);
-        }else if($data=='Stats'){
+            $server->send($fd,'success',$from_id);
+        }else if($data=='Stats'){//状态
             $data=$server->stats();
-            $result='服务启动时间'.date('Y-m-d H:i:s',$data['start_time']).PHP_EOL;
-            $result.='当前连接数量'.$data['connection_num'].PHP_EOL;
-            $result.='接受的链接数'.$data['accept_count'].PHP_EOL;
-            $result.='关闭的连接数'.$data['close_count'].PHP_EOL;
-            $result.='当前正在排队的任务数'.$data['tasking_num'].PHP_EOL;
-            $server->send($fd,$result,$from_id);
-        }else if($data=='Reload'){
+            $server->send($fd,json_encode($data),$from_id);
+        }else if($data=='Reload'){//重启
             $server->reload();
-            $server->send($fd,'已发送重启命令'.PHP_EOL,$from_id);
+            $server->send($fd,'success',$from_id);
+        }else if($data=='ResetTelnet'){//重置所有telnet链接
+            $this->conn[]=rand(9);
+            $server->send($fd,json_encode($this->conn),$from_id);
         }else{
-            $server->send($fd,$data,$from_id);
+            $data=json_decode($data);
+            if($data->act=='Telnet'&&isset($data->ip)&&isset($data->cmd)){//telnet交换机
+                if(!isset($this->conn[$data->ip])){
+                    $this->conn[$data->ip]=new TelnetModel($data->ip);
+                }
+                //$this->conn[];
+            }else{
+                $server->send($fd,'fail',$from_id);
+            }
         }
         $server->close($fd);
     }
