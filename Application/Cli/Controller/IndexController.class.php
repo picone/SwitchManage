@@ -2,17 +2,17 @@
 namespace Cli\Controller;
 class IndexController extends \Think\Controller{
 
-    const PING_INTERVAL=60000;
+    const INTERVAL_PING=60000;
 
     private $conn;
 
     public function index(){
         $server=new \swoole_server('127.0.0.1',9501);
         $server->set(array(
-            'task_worker_num'=>2,
+            'task_worker_num'=>4,
             'daemonize'=>false,
-            'max_request'=>1024,
-            'debug_mode'=>1
+            'heartbeat_check_interval'=>30,
+            'heartbeat_idle_time'=>60
         ));
         $server->on('WorkerStart',array($this,'onWorkerStart'));
         $server->on('Timer',array($this,'onTimer'));
@@ -24,12 +24,21 @@ class IndexController extends \Think\Controller{
     }
 
     public function onWorkerStart(\swoole_server $server,$worker_id){
-        $server->addtimer(self::PING_INTERVAL);//增加定时ping
+        if($server->taskworker){
+            swoole_set_process_name('switch_manage_task_worker');
+        }else{
+            swoole_set_process_name('switch_manage_event_worker');
+            if($worker_id==0){//防止tick被重复启动
+                $server->tick(self::INTERVAL_PING,function() use($server){
+                    $server->task('Ping');
+                });
+            }
+        }
     }
 
     public function onTimer(\swoole_server $server,$interval){
-        if($interval==self::PING_INTERVAL){
-
+        if($interval==self::INTERVAL_PING){
+            $server->task('Ping');
         }
     }
 
@@ -52,10 +61,22 @@ class IndexController extends \Think\Controller{
         }else{
             $server->send($fd,$data,$from_id);
         }
+        $server->close($fd);
     }
 
     public function onTask(\swoole_server $server,$fd,$from_id,$data){
-
+        if($data=='Ping'){
+            $res=D('Fping')->fping(DATA_PATH.'ip_list.txt');
+            if(is_array($res)){
+                $time=time();
+                D('Device')->startTrans();
+                foreach($res as $key=>&$val){
+                    D('Device')->setVal($key,$val,$time);
+                    D('History')->insert($key,$val,$time);
+                }
+                D('Device')->commit();
+            }
+        }
     }
 
     public function onFinish(\swoole_server $server,$task_id,$data){

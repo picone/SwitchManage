@@ -11,10 +11,10 @@ class DeviceModel extends \Think\Model{
         return $this->field('ip')->select();
     }
 
-    public function setVal($ip,$val,$time=''){
+    public function setVal($ip,$val,$time=0){
         return $this->where('ip=%d',ip2long($ip))->save(array(
             'val'=>$val,
-            'update_time'=>$time==''?NOW_TIME:$time
+            'update_time'=>$time==0?NOW_TIME:$time
         ));
     }
 }

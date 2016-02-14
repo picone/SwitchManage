@@ -5,4 +5,12 @@ class HistoryModel extends \Think\Model{
     protected $fields=array(
         'ip','dateline','val'
     );
+
+    public function insert($ip,$val,$time=0){
+        $this->add(array(
+            'ip'=>ip2long($ip),
+            'val'=>$val,
+            'dateline'=>$time==0?NOW_TIME:$time
+        ));
+    }
 }
