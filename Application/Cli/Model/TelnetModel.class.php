@@ -25,6 +25,8 @@ class TelnetModel{
     private $socket=null;
     private $err_no;
     private $err_msg;
+    private $device_name;
+    private $cur_view;
 
     public function __construct($ip,$password){
         if(strpos($ip,'.')>0){
@@ -41,12 +43,16 @@ class TelnetModel{
         return true;
     }
 
+    /**
+     * 连接并登录交换机
+     * @return int 0:成功,1:密码错误,2:登录超时,3:未知错误
+     */
     public function connect(){
         if(!$this->isConnect()){
             $this->socket=fsockopen($this->ip,23,$this->err_no,$this->err_msg);
             fputs($this->socket,
                 TEL_IAC.TEL_DO.TELOPT_GO_AHEAD/*.
-                TEL_IAC.TEL_WILL.TELOPT_NAWS//协商窗口大小*/
+                TEL_IAC.TEL_WILL.TELOPT_NAWS//协商窗口大小,交换机请求不要协商,就不去协商了*/
             );//发送连接命令
             $counter=0;
             do{
@@ -65,13 +71,23 @@ class TelnetModel{
                         TEL_IAC.TEL_SE;
                 }else if(strpos($data,'Password:')!==false){//需要密码
                     $cmd=$this->password."\r";
-                }else if(strpos($data,'<X1_4F_H1_E152B_1>')!==false){
-                    break;
+                }else if(strpos($data,"\r\n<")!==false){
+                    if(preg_match('/\\r\\n<(\w+?)>/',$data,$match)){
+                        $this->device_name=$match[1];
+                    }
+                    $this->cur_view='comm';
+                    return 0;
+                }else if(strpos($data,'%Wrong password!')!==false){
+                    return 1;
+                }else if(strpos($data,'timeout expired')!==false){
+                    return 2;
                 }
                 if($cmd!='')fputs($this->socket,$cmd);
                 $counter++;
             }while($data!=''&&$counter<20);
+            return 1;
         }
+        return 3;
     }
 
     public function getBuffer(){
@@ -85,8 +101,21 @@ class TelnetModel{
         return $result;
     }
 
-    public function send($cmd){
-        fputs($this->socket,$cmd);
+    public function exec($cmd){
+        $result='';
+        $c=0;
+        fputs($this->socket,$cmd."\r");
+        do{
+            $data=$this->getBuffer();
+            if(strpos($data,'---- More ----')!==false){
+                fputs($this->socket,chr(32));
+            }else if(strpos($data,'<'.$this->device_name.'>')!==false||strpos($data,'['.$this->device_name.']')!==false){
+                break;
+            }
+            $result.=$data;
+            $c++;
+        }while($data!=''&&$c<300);
+        return $result;
     }
 
     public function __destruct(){

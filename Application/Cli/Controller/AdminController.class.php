@@ -32,18 +32,4 @@ class AdminController extends \Think\Controller{
             echo '错误:',$res,PHP_EOL;
         }
     }
-
-    public function test(){
-        $t=new TelnetModel('172.16.121.1','');
-        $t->connect();
-        $t->send('dis cur'."\r");
-        $res='';
-        $c=0;
-        do{
-            $data=$t->getBuffer();
-            echo $data;
-            $c++;
-        }while($data!=''&&$c<100);
-        echo $res,PHP_EOL;
-    }
 }
