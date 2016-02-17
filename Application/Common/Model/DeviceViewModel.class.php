@@ -10,4 +10,8 @@ class DeviceViewModel extends \Think\Model{
     public function getDownList(){
         return $this->cache(true,30)->field('ip,position_name,device_name,update_time')->where('val<0')->select();
     }
+
+    public function fetchAll(){
+        return $this->field('ip,position_name,device_name,val')->select();
+    }
 }

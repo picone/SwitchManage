@@ -3,9 +3,6 @@
 <block name="extern_css">
     <link rel="stylesheet" href="__PUBLIC__/css/nav.css"/>
 </block>
-<block name="extern_js">
-
-</block>
 <block name="nav"><include file="Public:nav"/></block>
 <block name="container">
     <div class="content">
@@ -16,16 +13,19 @@
         <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <div class="list-group" id="List">
-                    <a class="list-group-item" href="#" name="ipList">192.168.1.1<span
-                            class="badge alert-danger">down</span></a>
-                    <a class="list-group-item" href="#" name="ipList">192.168.2.1<span
-                            class="badge alert-danger">down</span></a>
-                    <a class="list-group-item" href="#" name="ipList">192.168.3.1<span
-                            class="badge alert-danger">down</span></a>
-                    <a class="list-group-item" href="#" name="ipList">192.168.4.1<span
-                            class="badge alert-danger">down</span></a>
-                    <a class="list-group-item " href="#" name="ipList">192.168.5.1<span
-                            class="badge alert-success">up</span></a>
+                    <foreach name="data" item="position">
+                        {$key}
+                        <foreach name="position" item="val">
+                            <a class="list-group-item" href="#" name="ipList" data-ip="{$val.ip}">
+                                {$val.name}
+                                <if condition="$val.status">
+                                    <span class="badge alert-success">up</span>
+                                <else/>
+                                    <span class="badge alert-danger">down</span>
+                                </if>
+                            </a>
+                        </foreach>
+                    </foreach>
                     <!--   <a class="list-group-item" href="#">
                            <div class="list-group-item-heading">192.168.5.1<span
                                    class="badge alert-danger pull-right">down</span>
