@@ -32,4 +32,35 @@ class AdminController extends \Think\Controller{
             echo '错误:',$res,PHP_EOL;
         }
     }
+
+    public function getVersion(){
+        $fp=fopen(DATA_PATH.'ip_list.txt','r');
+        if(!$fp)exit('请先生成IP列表'.PHP_EOL);
+        while(!feof($fp)){
+            $ip=str_replace("\n",'',fgets($fp));
+            $telnet=new TelnetModel($ip,C('TELNET_PASSWORD'));
+            $telnet->connect();
+            $res=$telnet->exec('dis version');
+            if(preg_match('/\\r\\n(.*?) uptime/',$res,$match)){
+                try{
+                    $data=D('DeviceVersion')->fetchId($match[1]);
+                    if($data){
+                        $id=$data['id'];
+                    }else{
+                        $id=D('DeviceVersion')->insert($match[1]);
+                    }
+                    D('Device')->updateVersion(ip2long($ip),$id);
+                }catch(\Think\Exception $ignored){
+                    echo $ignored->getMessage(),PHP_EOL;
+                }
+                echo $ip,':',$match[1],PHP_EOL;
+            }else{//取出失败
+                echo '获取',$ip,'型号失败',PHP_EOL;
+            }
+        }
+    }
+
+    public function addIp(){
+
+    }
 }

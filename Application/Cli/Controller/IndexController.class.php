@@ -55,9 +55,29 @@ class IndexController extends \Think\Controller{
             $data=json_decode($data);
             if($data->act=='Telnet'&&isset($data->ip)&&isset($data->cmd)){//telnet交换机
                 if(!isset($this->conn[$data->ip])){
-                    $this->conn[$data->ip]=new TelnetModel($data->ip);
+                    $this->conn[$data->ip]=new TelnetModel($data->ip,C('TELNET_PASSWORD'));
                 }
-                //$this->conn[];
+                $switch=$this->conn[$data->ip];
+                $switch->connect();
+                $result=array();
+                if($data->cmd=='getInfo'){
+                    $result=array();
+                    if(preg_match('/uptime is (.*?)\\r\\n/',$switch->exec('dis version'),$match)){
+                        $result['uptime']=$match[1];
+                    }
+                    if(preg_match('/(\d+)% in last 5 seconds/',$switch->exec('dis cpu'),$match)){
+                        $result['cpu']=$match[1];
+                    }
+                    $res=$switch->exec('dis connection');
+                    if(preg_match('/Total (\d+) connection/',$res,$match)){
+                        $result['online_list_count']=$match[1];
+                    }
+                    if(preg_match_all('/(\w+)@system\\r\\n.*?(\w{4}\-\w{4}\-\w{4}).*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/',$res,$match)){
+                        array_shift($match);
+                        $result['online_list']=$match;
+                    }
+                }
+                $server->send($fd,json_encode($result),$from_id);
             }else{
                 $server->send($fd,'fail',$from_id);
             }

@@ -20,13 +20,15 @@ define('TELOPT_TERMINAL_TYPE',chr(0x18));
 define('TELOPT_NAWS',chr(0x1F));
 
 class TelnetModel{
+    const SLEEP_TIME=10000;
+
     private $ip;
     private $password;
     private $socket=null;
     private $err_no;
     private $err_msg;
-    private $device_name;
-    private $cur_view;
+    public $device_name;
+    public $cur_view=null;
 
     public function __construct($ip,$password){
         if(strpos($ip,'.')>0){
@@ -40,6 +42,12 @@ class TelnetModel{
 
     public function isConnect(){
         if($this->socket==null)return false;
+        if($this->cur_view!=null){
+            fputs($this->socket,"\r");
+            if(strpos($this->getBuffer(),$this->device_name)===false){
+                return false;
+            }
+        }
         return true;
     }
 
@@ -49,7 +57,7 @@ class TelnetModel{
      */
     public function connect(){
         if(!$this->isConnect()){
-            $this->socket=fsockopen($this->ip,23,$this->err_no,$this->err_msg);
+            $this->socket=fsockopen($this->ip,23,$this->err_no,$this->err_msg,20);
             fputs($this->socket,
                 TEL_IAC.TEL_DO.TELOPT_GO_AHEAD/*.
                 TEL_IAC.TEL_WILL.TELOPT_NAWS//协商窗口大小,交换机请求不要协商,就不去协商了*/
@@ -71,8 +79,8 @@ class TelnetModel{
                         TEL_IAC.TEL_SE;
                 }else if(strpos($data,'Password:')!==false){//需要密码
                     $cmd=$this->password."\r";
-                }else if(strpos($data,"\r\n<")!==false){
-                    if(preg_match('/\\r\\n<(\w+?)>/',$data,$match)){
+                }else if(strpos($data,'<')!==false){
+                    if(preg_match('/\\r\\n<(.+?)>/',$data,$match)){
                         $this->device_name=$match[1];
                     }
                     $this->cur_view='comm';
@@ -85,7 +93,6 @@ class TelnetModel{
                 if($cmd!='')fputs($this->socket,$cmd);
                 $counter++;
             }while($data!=''&&$counter<20);
-            return 1;
         }
         return 3;
     }
@@ -94,10 +101,10 @@ class TelnetModel{
         $result='';
         $c=0;
         do{
-            $result.=fread($this->socket,128);
+            $result.=fread($this->socket,1024);
             $status=socket_get_status($this->socket);
             $c++;
-        }while($status['unread_bytes']>0&&$c<1024);
+        }while($status['unread_bytes']>0&&$c<256);
         return $result;
     }
 
@@ -107,14 +114,14 @@ class TelnetModel{
         fputs($this->socket,$cmd."\r");
         do{
             $data=$this->getBuffer();
+            $result.=$data;
             if(strpos($data,'---- More ----')!==false){
                 fputs($this->socket,chr(32));
             }else if(strpos($data,'<'.$this->device_name.'>')!==false||strpos($data,'['.$this->device_name.']')!==false){
                 break;
             }
-            $result.=$data;
             $c++;
-        }while($data!=''&&$c<300);
+        }while($c<300);
         return $result;
     }
 

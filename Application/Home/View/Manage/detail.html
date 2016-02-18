@@ -12,13 +12,17 @@
         </ul>
         <!--面包屑-->
         <div class="container-fluid">
-            <div class="list-group ">
-                <div class="list-group-item">型号</div>
-                <div class="list-group-item ">运行时间</div>
-                <div class="list-group-item ">cpu</div>
-                <div class="list-group-item ">温度</div>
-                <div class="list-group-item ">在线用户数</div>
-                .....
+            <div class="list-group">
+                <div class="list-group-item">型号：{$version}</div>
+                <div class="list-group-item ">运行时间：{$uptime}</div>
+                <div class="list-group-item ">cpu：{$cpu}% in last 5 seconds</div>
+                <div class="list-group-item ">在线用户数：{$online_list_count}</div>
+                <foreach name="online_list[0]" item="val">
+                    用户名:{$val}
+                    MAC地址:{$online_list[1][$key]}
+                    IP:{$online_list[2][$key]}
+                    <br/>
+                </foreach>
             </div>
             跳转到配置
         </div>
