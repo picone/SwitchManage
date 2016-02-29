@@ -13,11 +13,16 @@ class ListController extends PublicController{
     }
 
     public function getDetail($ip=0){
+        $ip=intval($ip);
         if($ip==0){
             $this->ajaxReturn(6);
         }else{
-            $data=D('History')->fetchIp($ip);
-            $this->ajaxReturn(0,$data);
+            $data=D('History')->fetchIp($ip,1800);
+            if(isset($data[0])){
+                $this->ajaxReturn(0,$data);
+            }else{
+                $this->ajaxReturn(6);
+            }
         }
     }
 }

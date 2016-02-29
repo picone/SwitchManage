@@ -14,7 +14,11 @@ class HistoryModel extends \Think\Model{
         ));
     }
 
-    public function fetchIp($ip){
-        return $this->field('dateline,val')->where('ip=%d',$ip)->select();
+    public function fetchIp($ip,$time=0){
+        $where['ip']=$ip;
+        if($time>0){
+            $where['dateline']=array('gt',NOW_TIME-$time);
+        }
+        return $this->field('dateline,val')->where($where)->select();
     }
 }
