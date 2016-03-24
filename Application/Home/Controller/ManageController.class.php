@@ -11,32 +11,35 @@ class ManageController extends PublicController{
         $this->display();
     }
 
-    public function detail($ip=2886756613){
+    public function detail($ip=2886756611){
         if($ip==0)$this->error('该交换机不存在');
         $this->init_client();
         if($this->client==null){
-            //echo '服务未启动';
-            $data='{"uptime":"0 week,4 days,1 hour,39 minutes","cpu":"11","online_list_count":"2","online_list":[["3112000353","3112000384"],["0860-6e15-cb41","b888-e3de-121a"],["10.10.30.4","10.10.30.3"]]}';
-            $data=json_decode($data,true);
-            $this->client->close();
-            $this->assign($data);
-            $this->display();
+            $this->error('服务未启动');
         }else{
-            $data=D('Device')->getVersion($ip);
-            $this->assign($data);
+            $this->assign(D('Device')->getVersion($ip));
             $data=array('act'=>'Telnet','ip'=>long2ip($ip),'cmd'=>'getInfo');
-            $this->client->send(json_encode($data));
+            if(!$this->client->send(json_encode($data))){
+                $this->error('发送失败');
+            }
             $data=$this->client->recv();
             $data=json_decode($data,true);
             $this->client->close();
-            $this->assign($data);
-            $this->display();
+            if($data['status']===0){
+                $this->assign('uptime',$data['uptime']);
+                $this->assign('cpu',$data['cpu']);
+                $this->assign('online_list_count',$data['online_list_count']);
+                $this->assign('online_list',$data['online_list']);
+                $this->display();
+            }else{
+                //$this->error('连接交换机失败');
+            }
         }
     }
 
     private function init_client(){
         $this->client=new \swoole_client(SWOOLE_SOCK_TCP);
-        if(!$this->client->connect('127.0.0.1',9501)){
+        if(!$this->client->connect(C('SERVICE_IP'),C('SERVICE_PORT'))){
             $this->client=null;
         }
     }

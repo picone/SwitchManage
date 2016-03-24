@@ -50,8 +50,8 @@ class AdminController extends \Think\Controller{
                         $id=D('DeviceVersion')->insert($match[1]);
                     }
                     D('Device')->updateVersion(ip2long($ip),$id);
-                }catch(\Think\Exception $ignored){
-                    echo $ignored->getMessage(),PHP_EOL;
+                }catch(\Exception $e){
+                    echo $e->getMessage(),PHP_EOL;
                 }
                 echo $ip,':',$match[1],PHP_EOL;
             }else{//取出失败
