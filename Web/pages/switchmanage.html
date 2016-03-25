@@ -30,7 +30,14 @@
         <ul class="nav navbar-nav navbar-left ">
             <li><a href="index.html"><span>首页</span></a></li>
             <li><a href="switchlist.html"><span>交换机列表</span></a></li>
-            <li class="active"><a href="switchmanage.html"><span>交换机管理</span></a></li>
+            <li class=" dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>交换机管理</span><b class="caret"></b></a>
+                <ul class="dropdown-menu ">
+                    <li class="active"><a href="switchmanage.html">单个管理</a></li>
+                    <li class=""><a href="switchmanage.html">批量管理</a></li>
+                </ul>
+            </li>
+
         </ul>
         <ul class="nav navbar-nav navbar-right" id="">
             <li class="dropdown ">

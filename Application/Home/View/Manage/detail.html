@@ -7,28 +7,32 @@
 <block name="container">
     <div class="content">
         <ul class="breadcrumb">
-            <li><a href="__APP__/{$Think.CONTROLLER_NAME}">交换机列表</a> <!--<span class="divider">/</span>--></li>
-            <li><a href="#">单个交换机状态</a> <span class="divider">/</span></li>
+            <li><a href="__APP__/{$Think.CONTROLLER_NAME}">交换机列表</a></li>
+            <li><a href="#">详细信息</a></li>
         </ul>
+        <hr>
         <!--面包屑-->
         <div class="container-fluid">
-            <div class="list-group">
-                <div class="list-group-item">型号：{$version}</div>
-                <div class="list-group-item ">运行时间：{$uptime}</div>
-                <div class="list-group-item ">cpu：{$cpu}% in last 5 seconds</div>
-                <div class="list-group-item ">在线用户数：{$online_list_count}</div>
-                <foreach name="online_list[0]" item="val">
-                    用户名:{$val}
-                    MAC地址:{$online_list[1][$key]}
-                    IP:{$online_list[2][$key]}
-                    <br/>
-                </foreach>
+            <div class="row">
+                <div class="list-group">
+                    <div class="list-group-item">型号：{$version}</div>
+                    <div class="list-group-item ">运行时间：{$uptime}</div>
+                    <div class="list-group-item ">cpu：{$cpu}% in last 5 seconds</div>
+                    <div class="list-group-item ">在线用户数：{$online_list_count}</div>
+                    <foreach name="online_list[0]" item="val">
+                        用户名:{$val}
+                        MAC地址:{$online_list[1][$key]}
+                        IP:{$online_list[2][$key]}
+                        <br/>
+                    </foreach>
+                </div>
             </div>
-            跳转到配置
+            <div class="col-xs-2 col-xs-offset-5">
+                <button class="btn btn-default">修改配置</button>
+            </div>
         </div>
+
     </div>
 </block>
 <block name="extern_js">
-    <script type="text/javascript" src="__PUBLIC__/js/Chart.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/js/switchlist.js"></script>
 </block>

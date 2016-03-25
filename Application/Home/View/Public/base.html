@@ -10,11 +10,41 @@
 </head>
 <body>
 <block name="nav"></block>
+<block name="modal">
+    <div class="modal fade" id="cpwdmodal" tabindex="-1" role="dialog" aria-labelledby="cPwdModalTitle"
+         aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss='modal' aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="cPwdModalTitle">修改密码</h4>
+                </div>
+                <div class="modal-body">
+                    原密码：
+                    新密码：
+                    确认新密码：
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info">
+                        permit
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
 <div class="container-fluid">
     <block name="container"></block>
 </div>
 <script type="text/javascript" src="__PUBLIC__/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/js/bootstrap.js"></script>
-<block name="extern_js"></block>
+<block name="extern_js">
+    <script type="text/javascript" src="__PUBLIC__/js/base.js"></script>
+</block>
 </body>
 </html>

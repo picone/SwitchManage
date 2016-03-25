@@ -1,231 +1,76 @@
 <extend name="Public:base"/>
-<block name="title">首页</block>
+<block name="title">交换机管理</block>
 <block name="extern_css">
     <link rel="stylesheet" href="__PUBLIC__/css/nav.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/bootstrap-treeview.min.css">
 </block>
 <block name="nav"><include file="Public:nav"/></block>
 <block name="container">
     <div class="content">
         <ul class="breadcrumb">
-            <li><a href="#">交换机批量管理</a> <span class="divider">/</span></li>
+            <li><a href="#">交换机管理</a> <span class="divider">/</span></li>
         </ul>
         <!--面包屑-->
-        <a class="pull-right" href="__APP__/{$Think.CONTROLLER_NAME}/tree">切换到树状图</a>
-        <div class="row">
-            <hr/>
-            <div class="btn-group col-xs-12 col-md-12" data-toggle="buttons" id="contrList">
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 addboder">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 addboder">
-                        <input type="checkbox" name="switch" value="192.168.1.2" hidden="hidden">192.168.1.2
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 addboder">
-                        <input type="checkbox" name="switch" value="192.168.1.3" hidden="hidden">192.168.1.3
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.4" hidden="hidden">192.168.1.4
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.5" hidden="hidden">192.168.1.5
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.11" hidden="hidden">192.168.1.11
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.21" hidden="hidden">192.168.1.21
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.31" hidden="hidden">192.168.1.31
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.41" hidden="hidden">192.168.1.41
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.51" hidden="hidden">192.168.1.51
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.12" hidden="hidden">192.168.1.12
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.13" hidden="hidden">192.168.1.13
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.14" hidden="hidden">192.168.1.14
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.15" hidden="hidden">192.168.1.15
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.16" hidden="hidden">192.168.1.16
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.17" hidden="hidden">192.168.1.17
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.18" hidden="hidden">192.168.1.18
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.19" hidden="hidden">192.168.1.19
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.20" hidden="hidden">192.168.1.20
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-12 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <!--<div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <label class="btn btn-default  col-xs-12 ">
-                        <input type="checkbox" name="switch" value="192.168.1.1" hidden="hidden">192.168.1.1
-                    </label>
-                </div>-->
-                <!-- <label class="btn btn-default">
-                     <input type="checkbox" name="" value="192.168.1.1"/>192.168.1.5
-                 </label>-->
-            </div>
+        <a class="pull-right" href="__APP__/{$Think.CONTROLLER_NAME}/btnview">切换到图标视图</a>
 
-        </div>
-        <div class="row text-center">
-            <button type="button" class="btn btn-info" id="next">下一步</button>
+        <div class="row">
+            <hr>
+            <!--<h2>Checkable Tree</h2>-->
+            <div class="col-sm-4">
+                <h2>搜索</h2>
+                <hr/>
+                <div class="form-group">
+                    <label for="search" class="sr-only">Search Tree:</label>
+                    <input type="input" class="form-control" id="search" placeholder="Identify node...">
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-4 col-xs-4">
+                        <button type="button" class="btn btn-default btn-wait-search">
+                            <span class="glyphicon glyphicon-search"></span>
+                            查找
+                        </button>
+                    </div>
+                    <div class="form-group col-sm-4 col-xs-4"><!--搜索辅助工具栏-->
+                        <button type="button" class="btn btn-primary btn-wait-search" id="btn-cResult">选中结果</button>
+                    </div>
+                    <div class="form-group col-sm-4 col-xs-4">
+                        <button type="button" class="btn btn-primary btn-wait-search" id="btn-uncResult">反选结果</button>
+                    </div>
+                </div>
+                <hr/>
+            </div>
+            <div class="col-sm-4">
+                <h2>交换机列表</h2>
+                <hr/>
+                <div class="row  visible-xs">
+                    <div class="form-group col-xs-4 col-sm-6"><!--小屏辅助工具栏-->
+                        <button type="button" class="btn btn-danger" id="btn-checkonselect">勾选当前项</button>
+                    </div>
+                    <div class="form-group col-xs-4 col-sm-6">
+                        <button type="button" class="btn btn-primary" id="btn-uncheckonselect">取消当前项</button>
+                    </div>
+                    <div class="form-group col-sm-12 col-xs-4">
+                        <button type="button" class="btn btn-primary" id="btn-uncheakall">清除所有</button>
+                    </div>
+                    <hr>
+                </div>
+                <div id="listTree" class=""></div>
+                <div class="row">
+                    <div class="col-sm-2 col-sm-offset-5">
+                        <a class="btn btn-info" href="{$Think.CONTROLLER_NAME}/singelmanage.html">下一步</a>
+                    </div>
+                </div>
+                <!--树-->
+            </div>
+            <div class="col-sm-4">
+                <h2>已选中</h2>
+                <hr/>
+                <div id="checkable-output"></div>
+            </div>
         </div>
     </div>
 </block>
 <block name="extern_js">
-    <script type="text/javascript" src="__PUBLIC__/js/Chart.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/js/switchmanage.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/bootstrap-treeview.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/switchmanage-treeview.js"></script>
 </block>

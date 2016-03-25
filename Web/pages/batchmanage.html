@@ -32,7 +32,8 @@
         </ul>
         <ul class="nav navbar-nav navbar-right" id="">
             <li class="dropdown ">
-                <a href="#" class="dropdown-toggle " data-toggle="dropdown">管理员<b class="caret"></b></a><!--dropdown father-->
+                <a href="#" class="dropdown-toggle " data-toggle="dropdown">管理员<b class="caret"></b></a>
+                <!--dropdown father-->
                 <ul class="dropdown-menu"><!--main dropdown menu-->
                     <li><a href="#">系统设置</a></li>
                     <!--修改密码-->
@@ -48,59 +49,11 @@
     <ul class="breadcrumb">
         <!--<li><a href="index.html">首页</a> <span class="divider">/</span></li>-->
         <li><a href="switchlist.html">交换机列表</a> <!--<span class="divider">/</span>--></li>
-        <li><a href="#">单个交换机管理</a> <span class="divider">/</span></li>
+        <li><a href="#">交换机批量操作</a> <span class="divider"></span></li>
     </ul>
     <!--面包屑-->
-    <div class="">
-        <div class="row">
-            <div class="col-md-2">
-                <h2>命令对象</h2>
-                <hr>
-                <label for="select">请选择命令类型</label>
+    <div class="row">
 
-                <select class="form-control" id="select">
-                    <option value="all">全局/所有端口</option>
-                    <option value="pro">指定端口</option>
-                </select>
-
-                <div id="pro" style="display: none;">
-                    <label for="proList">需要操作的端口</label>
-                    <label class="pull-right">
-
-                    </label>
-                    <select class="form-control" id="proList" multiple size="20">
-
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <h2>命令列表</h2>
-                <hr>
-                <label for="commList">选择命令</label>
-                <select class="form-control" id="commList">
-                    <option value="">请选择</option>
-                </select>
-
-            </div>
-            <div class="col-md-4">
-                <h2>命令预览</h2>
-                <hr>
-                <button class="btn btn-default" id="testclick">click</button>
-                <script>
-                    var inter = 1;
-                    $("#select").change(function () {
-                        if (this.value == 'pro')
-                            $("#pro").show();
-                        else $('#pro').hide();
-                    });
-                    $('#testclick').click(function () {
-
-                        var arr = new Option(inter, inter++);
-                        document.getElementById('proList').options.add(arr);
-                    })
-                </script>
-            </div>
-        </div>
     </div>
 
 
