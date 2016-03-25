@@ -80,7 +80,7 @@ class TelnetModel{
                 }else if(strpos($data,'Password:')!==false){//需要密码
                     $cmd=$this->password."\r";
                 }else if(strpos($data,'<')!==false){
-                    if(preg_match('/\\r\\n<(.+?)>/',$data,$match)){
+                    if(preg_match('/<(.+?)>/',$data,$match)){
                         $this->device_name=$match[1];
                     }
                     $this->cur_view='comm';

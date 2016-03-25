@@ -29,4 +29,10 @@ class LoginController extends PublicController{
         $verify=new \Think\Verify();
         $verify->entry();
     }
+
+    public function logout(){
+        session('user_id',null);
+        session('username',null);
+        $this->success('将跳转到登录界面...','index');
+    }
 }

@@ -9,7 +9,7 @@ class IndexController extends \Think\Controller{
     private $conn;
 
     public function index(){
-        $server=new \swoole_server('127.0.0.1',9501);
+        $server=new \swoole_server(C('SERVICE_IP'),C('SERVICE_PORT'));
         $server->set(array(
             'task_worker_num'=>4,
             'daemonize'=>false,
@@ -20,6 +20,8 @@ class IndexController extends \Think\Controller{
         $server->on('Receive',array($this,'onReceive'));
         $server->on('Task',array($this,'onTask'));
         $server->on('Finish',array($this,'onFinish'));
+        $server->on('pipeMessage',array($this,'onPipeMessage'));
+        $server->on('WorkerError',array($this,'onWorkerError'));
         $this->conn=array();
         $server->start();
     }
@@ -27,6 +29,7 @@ class IndexController extends \Think\Controller{
     public function onWorkerStart(\swoole_server $server,$worker_id){
         if($server->taskworker){
             swoole_set_process_name('switch_manage_task_worker');
+            $server->sendMessage('worker start.',$server->worker_id-1);
         }else{
             swoole_set_process_name('switch_manage_event_worker');
             if($worker_id==0){//防止tick被重复启动
@@ -49,8 +52,7 @@ class IndexController extends \Think\Controller{
             $server->reload();
             $server->send($fd,'success',$from_id);
         }else if($data=='ResetTelnet'){//重置所有telnet链接
-            $this->conn[]=rand(9);
-            $server->send($fd,json_encode($this->conn),$from_id);
+
         }else{
             $data=json_decode($data);
             if($data->act=='Telnet'&&isset($data->ip)&&isset($data->cmd)){//telnet交换机
@@ -66,16 +68,17 @@ class IndexController extends \Think\Controller{
                         $result['uptime']=$match[1];
                     }
                     if(preg_match('/(\d+)% in last 5 seconds/',$switch->exec('dis cpu'),$match)){
-                        $result['cpu']=$match[1];
+                        $result['cpu']=intval($match[1]);
                     }
                     $res=$switch->exec('dis connection');
                     if(preg_match('/Total (\d+) connection/',$res,$match)){
-                        $result['online_list_count']=$match[1];
+                        $result['online_list_count']=intval($match[1]);
                     }
                     if(preg_match_all('/(\w+)@system\\r\\n.*?(\w{4}\-\w{4}\-\w{4}).*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/',$res,$match)){
                         array_shift($match);
                         $result['online_list']=$match;
                     }
+                    $result['status']=0;
                 }
                 $server->send($fd,json_encode($result),$from_id);
             }else{
@@ -102,5 +105,15 @@ class IndexController extends \Think\Controller{
 
     public function onFinish(\swoole_server $server,$task_id,$data){
 
+    }
+
+    public function onPipeMessage(\swoole_server $server,$worker_id,$data){
+        echo date('Y-m-d H:i:s'),':#',$worker_id,':',$data,PHP_EOL;
+    }
+
+    public function onWorkerError(\swoole_server $server,$worker_id,$worker_pid,$exit_code){
+        $msg='WorkerError:#'.$worker_id.' PID:'.$worker_pid.' ExitCode:'.$exit_code.PHP_EOL;
+        echo $msg;
+        \Think\Log::write($msg);
     }
 }
