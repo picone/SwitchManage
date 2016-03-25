@@ -1,0 +1,76 @@
+<extend name="Public:base"/>
+<block name="title">首页</block>
+<block name="extern_css">
+    <link rel="stylesheet" href="__PUBLIC__/css/nav.css"/>
+</block>
+<block name="nav">
+    <include file="Public:nav"/>
+</block>
+<block name="container">
+    <div class="content">
+        <ul class="breadcrumb">
+            <!--<li><a href="index.html">首页</a> <span class="divider">/</span></li>-->
+            <li><a href="__APP__/{$Think.CONTROLLER_NAME}">交换机管理</a> <!--<span class="divider">/</span>--></li>
+            <li><a href="__APP__/{$Think.CONTROLLER_NAME}/detail">详细信息</a> <span class="divider"></span></li>
+            <li><a href="#">配置管理</a> <span class="divider"></span></li>
+        </ul>
+        <!--面包屑-->
+        <div class="">
+            <div class="row">
+                <div class="col-md-2">
+                    <h2>命令对象</h2>
+                    <hr>
+                    <label for="select">请选择命令类型</label>
+
+                    <select class="form-control" id="select">
+                        <option value="all">全局/所有端口</option>
+                        <option value="pro">指定端口</option>
+                    </select>
+
+                    <div id="pro" style="display: none;">
+                        <label for="proList">需要操作的端口</label>
+                        <label class="pull-right">
+
+                        </label>
+                        <select class="form-control" id="proList" multiple size="20">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h2>命令列表</h2>
+                    <hr>
+                    <label for="commList">选择命令</label>
+                    <select class="form-control" id="commList">
+                        <option value="">请选择</option>
+                    </select>
+
+                </div>
+                <div class="col-md-4">
+                    <h2>命令预览</h2>
+                    <hr>
+                    <button class="btn btn-default" id="testclick">click</button>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</block>
+<block name="extern_js">
+    <script type="text/javascript" src="__PUBLIC__/js/switchmanage.js"></script>
+    <script>
+        var inter = 1;
+        $("#select").change(function () {
+            if (this.value == 'pro')
+                $("#pro").show();
+            else $('#pro').hide();
+        });
+        $('#testclick').click(function () {
+
+            var arr = new Option(inter, inter++);
+            document.getElementById('proList').options.add(arr);
+        })
+    </script>
+</block>
