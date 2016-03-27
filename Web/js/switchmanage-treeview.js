@@ -5,6 +5,7 @@
 
 $(function () {
     var $tv;
+    var countChecked;
     var revealSearch;
     var listData = [
         {
@@ -47,7 +48,56 @@ $(function () {
                         },
                         {
                             text: "172.16.122.5"
+                        },
+                        {
+                            text: "172.16.122.6"
+                        },
+                        {
+                            text: "172.16.122.7"
+                        },
+                        {
+                            text: "172.16.122.8"
+                        },
+                        {
+                            text: "172.16.122.9"
+                        },
+                        {
+                            text: "172.16.122.10"
+                        },
+                        {
+                            text: "172.16.122.11"
+                        },
+                        {
+                            text: "172.16.122.12"
+                        },
+                        {
+                            text: "172.16.122.13"
+                        },
+                        {
+                            text: "172.16.122.14"
+                        },
+                        {
+                            text: "172.16.122.15"
+                        },
+                        {
+                            text: "172.16.122.16"
+                        },
+                        {
+                            text: "172.16.122.17"
+                        },
+                        {
+                            text: "172.16.122.18"
+                        },
+                        {
+                            text: "172.16.122.19"
+                        },
+                        {
+                            text: "172.16.122.20"
+                        },
+                        {
+                            text: "172.16.122.21"
                         }
+
                     ]
                 },
                 {
@@ -119,16 +169,22 @@ $(function () {
             if (node.nodes == undefined)
                 $('#checkable-output').append('<p name=' + node.text + '>' + node.text + '</p>');
             checkchild(event.target, node);
+            countChecked = $("#checkable-output")[0].childElementCount;
+            $("#btn-wait-select").attr('disabled', countChecked <= 0);
+
         },
         onNodeUnchecked: function (event, node) {
             if (node.nodes == undefined)
                 $('#checkable-output p[name="' + node.text + '"]').remove();
             uncheckchild(event.target, node);
+            countChecked = $("#checkable-output")[0].childElementCount;
+            $("#btn-wait-select").attr('disabled', countChecked <= 0);
         }
     });
 //初始化并失活按钮
 //    $(".btn-wait-search").prop('disabled',true);
     $(".btn-wait-search").attr('disabled', true);
+    $("#btn-wait-select").attr('disabled', true);
 
     var search = function (e) {
         var content = $('#search').val();
@@ -186,6 +242,7 @@ $(function () {
         console.dir(selNode);
     };
     var checkSel;
+    /*选中 取消选中的按钮功能*/
     $("#btn-checkonselect").click(function () {
         checkSel = checkonselect("checkNode");
     });
@@ -194,6 +251,28 @@ $(function () {
     });
     $("#btn-uncheakall").click(function () {
         checkSel = checkonselect('uncheckAll');
+    });
+    /*下一步按钮绑定*/
+    $("#btn-wait-select").click(function () {
+        alert("click");
+        $check = document.getElementById('checkable-output');
+        countChecked = $check.childElementCount;
+        if (countChecked == 1) {
+            var ipNum = $check.innerText;
+            ipNum = ip2int(ipNum);
+            document.getElementById('btn-wait-select').href = "Manage/detail/ip/" + ipNum;
+        } else if (countChecked >= 2) {
+            var ipNum = [];
+            alert("选择了多台交换机");
+
+        }
+
     })
 });
-
+function ip2int(ip) {
+    var num = 0;
+    ip = ip.split(".");
+    num = Number(ip[0]) * 256 * 256 * 256 + Number(ip[1]) * 256 * 256 + Number(ip[2]) * 256 + Number(ip[3]);
+    num = num >>> 0;
+    return num;
+}
