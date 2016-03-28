@@ -11,28 +11,37 @@ class ManageController extends PublicController{
         $this->display();
     }
 
-    public function detail($ip=2886756611){
-        if($ip==0)$this->error('该交换机不存在');
+    public function detail($ip,$cmd){
         $this->init_client();
         if($this->client==null){
             $this->error('服务未启动');
         }else{
-            $this->assign(D('Device')->getVersion($ip));
-            $data=array('act'=>'Telnet','ip'=>long2ip($ip),'cmd'=>'getInfo');
+            $data=array('act'=>'Telnet','ip'=>$ip,'cmd'=>$cmd);
             if(!$this->client->send(json_encode($data))){
-                $this->error('发送失败');
+                $this->error('发送命令失败');
             }
-            $data=$this->client->recv();
+            $data=$this->client->recv(8192, \swoole_client::MSG_PEEK | \swoole_client::MSG_WAITALL);
+            if(!$data){
+                $this->error('接收数据错误:'.$this->client->errCode);
+            }
             $data=json_decode($data,true);
             $this->client->close();
-            if($data['status']===0){
-                $this->assign('uptime',$data['uptime']);
-                $this->assign('cpu',$data['cpu']);
-                $this->assign('online_list_count',$data['online_list_count']);
-                $this->assign('online_list',$data['online_list']);
-                $this->display();
-            }else{
-                //$this->error('连接交换机失败');
+            switch($data['code']){
+                case 1:
+                    $data['data']['version']=D('Device')->getVersion($ip);
+                    $this->assign('data',$data['data']);
+                    $this->assign('cmd',$cmd);
+                    $this->assign('ip',$ip);
+                    $this->display();
+                    break;
+                case 2:
+                    $this->error('暂不支持操作该交换机');
+                    break;
+                case 3:
+                    $this->error('暂不支持该命令');
+                    break;
+                default:
+                    $this->error('连接交换机失败');
             }
         }
     }

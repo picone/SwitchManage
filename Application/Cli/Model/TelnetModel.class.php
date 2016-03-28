@@ -56,7 +56,8 @@ class TelnetModel{
      * @return int 0:成功,1:密码错误,2:登录超时,3:未知错误
      */
     public function connect(){
-        if(!$this->isConnect()){
+        $retry=0;
+        while(!$this->isConnect()&&$retry<=3){
             $this->socket=fsockopen($this->ip,23,$this->err_no,$this->err_msg,20);
             fputs($this->socket,
                 TEL_IAC.TEL_DO.TELOPT_GO_AHEAD/*.

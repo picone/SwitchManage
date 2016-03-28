@@ -31,6 +31,10 @@ class DeviceModel extends \Think\Model{
     }
 
     public function getVersion($ip){
-        return $this->cache(true)->field('device_version.version')->where('ip=%d',$ip)->join('device_version ON device_version.id=device.version_id')->find();
+        return $this->cache(true)->field('device_version.version')->where('ip=%d',$ip)->join('device_version ON device_version.id=device.version_id')->find()['version'];
+    }
+    
+    public function getVersionId($ip){
+        return $this->cache(true)->field('version_id')->where('ip=%d',$ip)->find()['version_id'];
     }
 }

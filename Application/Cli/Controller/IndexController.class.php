@@ -1,5 +1,6 @@
 <?php
 namespace Cli\Controller;
+use Cli\Event\TelnetEvent;
 use Cli\Model\TelnetModel;
 
 class IndexController extends \Think\Controller{
@@ -54,33 +55,25 @@ class IndexController extends \Think\Controller{
         }else if($data=='ResetTelnet'){//重置所有telnet链接
 
         }else{
-            $data=json_decode($data);
-            if($data->act=='Telnet'&&isset($data->ip)&&isset($data->cmd)){//telnet交换机
+            $server->sendMessage($data,$server->worker_id-1);
+            $data=json_decode($data,true);
+            if($data['act']=='Telnet'&&isset($data['ip'])&&isset($data['cmd'])){//执行命令
                 if(!isset($this->conn[$data->ip])){
-                    $this->conn[$data->ip]=new TelnetModel($data->ip,C('TELNET_PASSWORD'));
+                    $this->conn[$data['ip']]=TelnetEvent::getService($data['ip']);
                 }
-                $switch=$this->conn[$data->ip];
-                $switch->connect();
-                $result=array();
-                if($data->cmd=='getInfo'){
-                    $result=array();
-                    if(preg_match('/uptime is (.*?)\\r\\n/',$switch->exec('dis version'),$match)){
-                        $result['uptime']=$match[1];
+                $service=$this->conn[$data['ip']];
+                if($service==null){
+                    $result['code']=2;
+                }else{
+                    $result['data']=$service->exec($data['cmd']);
+                    if($result==null){
+                        $result=['code'=>3];
+                    }else{
+                        $result['code']=1;
                     }
-                    if(preg_match('/(\d+)% in last 5 seconds/',$switch->exec('dis cpu'),$match)){
-                        $result['cpu']=intval($match[1]);
-                    }
-                    $res=$switch->exec('dis connection');
-                    if(preg_match('/Total (\d+) connection/',$res,$match)){
-                        $result['online_list_count']=intval($match[1]);
-                    }
-                    if(preg_match_all('/(\w+)@system\\r\\n.*?(\w{4}\-\w{4}\-\w{4}).*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/',$res,$match)){
-                        array_shift($match);
-                        $result['online_list']=$match;
-                    }
-                    $result['status']=0;
                 }
                 $server->send($fd,json_encode($result),$from_id);
+                $server->sendMessage(json_encode($result),$server->worker_id-1);
             }else{
                 $server->send($fd,'fail',$from_id);
             }

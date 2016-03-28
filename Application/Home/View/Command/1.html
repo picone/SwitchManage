@@ -1,0 +1,45 @@
+<div class="list-group">
+    <a class="list-group-item">
+        <div class="row">
+            <div class="col-xs-6 col-sm-3">型号：</div>
+            <div class="col-xs-6 col-sm-9">{$version}</div>
+        </div>
+    </a>
+    <a class="list-group-item ">
+        <div class="row">
+            <div class="col-xs-12 col-sm-3">运行时间：</div>
+            <div class="col-xs-12 col-sm-9">{$uptime}</div>
+        </div>
+    </a>
+    <a class="list-group-item ">
+        <div class="row">
+            <div class="col-xs-8 col-sm-3"> 5秒内CPU占用：</div>
+            <div class="col-xs-4 col-sm-9"> {$cpu}%</div>
+        </div>
+    </a>
+    <a class="list-group-item" data-toggle="collapse" href="#connection">
+        <div class="row">
+            <div class="col-xs-8 col-sm-3">在线用户：</div>
+            <div class="col-xs-4 col-sm-9">{$online_list_count}个</div>
+        </div>
+        <!--在线用户：{$online_list_count} 个&lt;!&ndash;&ndash;&gt;-->
+    </a>
+
+    <div class="collapse" id="connection">
+        <foreach name="online_list[0]" item="val">
+            <a class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        用户名:{$val}
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        MAC地址:{$online_list[1][$key]}
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        IP:{$online_list[2][$key]}
+                    </div>
+                </div>
+            </a>
+        </foreach>
+    </div>
+</div>
