@@ -122,7 +122,7 @@ class TelnetModel{
                 break;
             }
             $c++;
-        }while($c<300);
+        }while($c<500);
         return $result;
     }
 

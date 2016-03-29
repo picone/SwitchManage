@@ -5,6 +5,7 @@
 namespace Cli\Service;
 use \Cli\Model\TelnetModel;
 class Switch_1_Service extends SwitchBaseService{
+
     public function __construct(TelnetModel $switch){
         parent::__construct($switch);
         $this->version_id=1;

@@ -4,7 +4,6 @@ use Cli\Model\TelnetModel;
 abstract class SwitchBaseService{
     
     protected $version_id;//交换机型号ID
-    protected $interface;//接口列表
     protected $switch;
 
     public function __construct(TelnetModel $switch){
@@ -36,13 +35,9 @@ abstract class SwitchBaseService{
     }
 
     /**
-     * 重启交换机
-     */
-    public abstract function reboot();
-
-    /**
      * 获取端口详细信息
-     * @param $interface
+     * @param string $interface 端口名字
+     * @return string
      */
     public function getInt($interface){
         if($interface==null){
@@ -50,7 +45,35 @@ abstract class SwitchBaseService{
         }else{
             $data=$this->exec('display interface '.$interface);
         }
+        return $data;
     }
+
+    /**
+     * 获取端口概况
+     * @return mixed
+     */
+    abstract public function getBrief();
+
+    /**
+     * 获取全局或端口的配置信息
+     * @param string $interface
+     * @return string
+     */
+    public function getConf($interface){
+        if($interface==null){
+            $cmd='display current-configuration';
+        }else{
+            $cmd='display current-configuration interface '.$interface;
+        }
+        $data=$this->switch->exec($cmd);
+        $data=substr($data,strlen($cmd)+2);
+        return ['str'=>str_replace("---- More ----\x1b[42D                                          \x1b[42D",'',$data)];
+    }
+
+    /**
+     * 重启交换机
+     */
+    public abstract function reboot();
 
     /**
      * 取消端口关闭
@@ -71,15 +94,27 @@ abstract class SwitchBaseService{
     }
 
     /**
+     * 线缆测试
+     * @param string $interface
+     */
+    public function testCable($interface){
+
+    }
+
+    /**
      * 执行命令
      * @param $command_id
      * @return mixed
      */
-    public function exec($command_id){
+    public function exec($command_id,$arg=null){
         $this->switch->connect();
         $func=D('Command')->getKey($command_id);
         if(method_exists($this,$func)){
-            return $this->$func();
+            if($arg==null){
+                return $this->$func();
+            }else{
+                return $this->$func($arg);
+            }
         }else{
             return null;
         }

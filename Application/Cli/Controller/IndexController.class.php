@@ -65,8 +65,12 @@ class IndexController extends \Think\Controller{
                 if($service==null){
                     $result['code']=2;
                 }else{
-                    $result['data']=$service->exec($data['cmd']);
-                    if($result==null){
+                    if(isset($data['arg'])){
+                        $result['data']=$service->exec($data['cmd'],$data['arg']);
+                    }else{
+                        $result['data']=$service->exec($data['cmd']);
+                    }
+                    if($result==null||$result['data']==null){
                         $result=['code'=>3];
                     }else{
                         $result['code']=1;

@@ -10,9 +10,9 @@ class ManageController extends PublicController{
         $this->display();
     }
 
-    public function detail($ip,$cmd){
+    public function detail($ip,$cmd,$int=null){
         $client=new \swoole_client(SWOOLE_TCP,SWOOLE_SYNC);
-        if(!$client->connect(C('SERVICE_IP'),C('SERVICE_PORT'))){
+        if(!$client->connect(C('SERVICE_IP'),C('SERVICE_PORT'),10)){
             $this->error('服务未启动');
         }
         $data=array('act'=>'Telnet','ip'=>$ip,'cmd'=>$cmd);
@@ -41,7 +41,12 @@ class ManageController extends PublicController{
                 $this->error('暂不支持该命令');
                 break;
             default:
-                $this->error('接收数据错误:'.$client->errCode);
+                var_dump($data);
+                //$this->error('接收数据错误:'.$client->errCode);
         }
+    }
+    
+    public function getInterface(){
+        
     }
 }
