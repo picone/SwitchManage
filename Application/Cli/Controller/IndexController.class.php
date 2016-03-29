@@ -75,7 +75,7 @@ class IndexController extends \Think\Controller{
                 $server->send($fd,json_encode($result),$from_id);
                 $server->sendMessage(json_encode($result),$server->worker_id-1);
             }else{
-                $server->send($fd,'fail',$from_id);
+                $server->send($fd,'unknown command!',$from_id);
             }
         }
         $server->close($fd);
