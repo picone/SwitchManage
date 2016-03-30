@@ -26,6 +26,10 @@ class Switch_1_Service extends SwitchBaseService{
         $data=$this->switch->exec('display brief interface');
         if(preg_match_all('/([EG]\d\/\d{1,2})\s+(UP|DOWN).*?(access|trunk).*?00BASE-T/',$data,$result)){
             array_shift($result);
+            foreach($result[2] as &$val){
+                if($val=='access')$val='A';
+                else if($val=='trunk')$val='T';
+            }
             F('Interface_'.$this->switch->getIp(),$result[0]);
             return ['no'=>1,'res'=>$result];
         }else{

@@ -30,8 +30,7 @@ class ManageController extends PublicController{
                 $this->error('暂不支持该命令');
                 break;
             default:
-                var_dump($data);
-                //$this->error('接收数据错误:'.$client->errCode);
+                $this->error('接收数据错误');
         }
     }
     

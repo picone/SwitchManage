@@ -44,7 +44,8 @@ class TelnetModel{
         if($this->socket==null)return false;
         if($this->cur_view!=null){
             fputs($this->socket,"\r");
-            if(strpos($this->getBuffer(),$this->device_name)===false){
+            $data=$this->getBuffer();
+            if($data==''||strpos($data,$this->device_name)===false){
                 return false;
             }
         }
