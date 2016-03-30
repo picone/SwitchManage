@@ -14,7 +14,7 @@ class ManageController extends PublicController{
         if($int==null)
             $data=$this->exec(array('ip'=>$ip,'cmd'=>$cmd));
         else
-            $data=$this->exec(array('ip'=>$ip,'cmd'=>$cmd,'int'=>$int));
+            $data=$this->exec(array('ip'=>$ip,'cmd'=>$cmd,'arg'=>$int));
         switch($data['code']){
             case 1:
                 $data['data']['version']=D('Device')->getVersion($ip);
@@ -39,11 +39,17 @@ class ManageController extends PublicController{
         $cmd=D('Command')->getCommand($cmd);
         if(!$cmd)$this->ajaxReturn(7);
         if($cmd['arg_type']==0){
-            $this->ajaxReturn(1,[]);
+            $this->ajaxReturn(1,array());
         }
-        $this->exec(array('ip'=>$ip,'cmd'=>4));
-        $data=F('Interface_'.$ip);
+        $data=F('Interface_'.long2ip($ip));
+        if(!$data){
+            $this->exec(array('ip'=>$ip,'cmd'=>4));
+            $data=F('Interface_'.long2ip($ip));
+        }
         if(!$data)$this->ajaxReturn(9);
+        if($cmd['arg_type']==1){
+            array_unshift($data,'全局');
+        }
         $this->ajaxReturn(1,$data);
     }
     
@@ -53,11 +59,10 @@ class ManageController extends PublicController{
         if(!$client->connect(C('SERVICE_IP'),C('SERVICE_PORT'),10)){
             $this->error('服务未启动');
         }
-        $data=array($cmd);
-        if(!$client->send(json_encode($data))){
+        if(!$client->send(json_encode($cmd))){
             $this->error('发送命令失败');
         }
-        $c=30;
+        $c=5;
         $str='';
         do{
             $str.=$client->recv();
