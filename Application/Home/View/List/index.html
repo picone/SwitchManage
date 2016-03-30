@@ -15,7 +15,8 @@
                 <div class="list-group" id="List">
                     <!--{$positionId=1}-->
                     <foreach name="data" item="position">
-                        <a class="list-group-item" data-toggle="collapse" href="#position{++$positionId}">{$key}</a>
+                        <a class="list-group-item" data-toggle="collapse" href="#position{++$positionId}"><span
+                                class="glyphicon glyphicon-align-justify"> {$key}</span> </a>
 
                         <div class="collapse" id="position{$positionId}">
                             <foreach name="position" item="val">
@@ -31,27 +32,9 @@
 
                         </div>
                     </foreach>
-                    <!--   <a class="list-group-item" href="#">
-                           <div class="list-group-item-heading">192.168.5.1<span
-                                   class="badge alert-danger pull-right">down</span>
-                           </div>
-                           &lt;!&ndash;<div class="list-group-item-text">down at least 20min</div>
-                       </a>&ndash;&gt;-->
                 </div>
             </div>
-            <!--在手机不显示-->
-            <!--  <div class="hidden-xs col-sm-6" id="swState">
-                  <form class="list-group ">
-                      <div class="list-group-item " name="type">型号</div>
-                      <div class="list-group-item " name="time">运行时间</div>
-                      <div class="list-group-item " name="cpu">cpu</div>
-                      <div class="list-group-item ">温度</div>
-                      <div class="list-group-item ">在线用户数</div>
-                      <a class="list-group-item" href="__APP__/{$Think.CONTROLLER_NAME}/detail">
-                          <div class="list-group-item-heading text-center">更多</div>
-                      </a>
-                  </form>
-              </div>-->
+
             <div class="col-xs-12 col-sm-6">
                 <div id="pingChart"></div>
             </div>
