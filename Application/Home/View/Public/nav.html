@@ -12,15 +12,19 @@
         <ul class="nav navbar-nav navbar-left ">
             <li
             <eq name="CONTROLLER_NAME" value="Index">class="active"</eq>
-            ><a href="__APP__/index.html"><span>首页</span></a></li>
+            ><a href="__APP__/index.html"><span class="glyphicon glyphicon-home">&nbsp;首页</span></a></li>
             <li
             <eq name="CONTROLLER_NAME" value="List">class="active"</eq>
-            ><a href="__APP__/List"><span>交换机状态</span></a></li>
-            <li <eq name="CONTROLLER_NAME" value="Manage">class="active"</eq>><a href="__APP__/Manage"><span>交换机管理</span></a></li>
+            ><a href="__APP__/List"><span class="glyphicon glyphicon-align-left">&nbsp;交换机状态</span></a></li>
+            <li
+            <eq name="CONTROLLER_NAME" value="Manage">class="active"</eq>
+            ><a href="__APP__/Manage"><span class="glyphicon glyphicon-cog">&nbsp;交换机管理</span></a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right" id="">
             <li class="dropdown ">
-                <a href="#" class="dropdown-toggle " data-toggle="dropdown">{$GLOBALS.real_name}<b class="caret"></b></a><!--dropdown father-->
+                <a href="#" class="dropdown-toggle " data-toggle="dropdown"><span
+                        class="glyphicon glyphicon-user"></span>{$GLOBALS.real_name}<b class="caret"></b></a>
+                <!--dropdown father-->
                 <ul class="dropdown-menu"><!--main dropdown menu-->
                     <li><a href="#">日志管理</a></li>
                     <!--修改密码-->
