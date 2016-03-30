@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>端口名</th>
+        <th>状态</th>
+        <th>类型</th>
+    </tr>
+    </thead>
+    <tbody>
+    <foreach name="res.0" item="val">
+        <tr>
+            <td>{$val}</td>
+            <td>{$res[1][$key]}</td>
+            <td>
+                <switch name="res[2][$key]">
+                    <case value="access">接入端</case>
+                    <case value="trunk">聚合端</case>
+                    <default>{$res[2][$key]}</default>
+                </switch>
+            </td>
+        </tr>
+    </foreach>
+    </tbody>
+</table>

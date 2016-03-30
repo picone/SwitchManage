@@ -126,6 +126,10 @@ class TelnetModel{
         return $result;
     }
 
+    public function getIp(){
+        return $this->ip;
+    }
+
     public function __destruct(){
         fclose($this->socket);
     }
