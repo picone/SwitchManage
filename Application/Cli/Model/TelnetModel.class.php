@@ -86,6 +86,7 @@ class TelnetModel{
                         $this->device_name=$match[1];
                     }
                     $this->cur_view='comm';
+                    $this->exec('undo terminal monitor');
                     return 0;
                 }else if(strpos($data,'%Wrong password!')!==false){
                     return 1;
@@ -103,10 +104,10 @@ class TelnetModel{
         $result='';
         $c=0;
         do{
-            $result.=fread($this->socket,1024);
+            $result.=fread($this->socket,65535);
             $status=socket_get_status($this->socket);
             $c++;
-        }while($status['unread_bytes']>0&&$c<256);
+        }while($status['unread_bytes']>0&&$c<30);
         return $result;
     }
 

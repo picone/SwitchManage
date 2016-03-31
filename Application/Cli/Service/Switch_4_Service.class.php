@@ -23,10 +23,14 @@ class Switch_4_Service extends SwitchBaseService{
      */
     public function getBrief(){
         $data=$this->switch->exec('display brief interface');
-        if(preg_match_all('/((GE|Eth)\d\/0\/\d{1,2})\s+(UP|DOWN)/',$data,$result)){
+        if(preg_match_all('/((GE|Eth)\d\/0\/\d{1,2})\s+(UP|DOWN).*?(trunk|access)/',$data,$result)){
             array_shift($result);
             array_splice($result,1,1);
-            //F('Interface_'.$this->switch->getIp(),$result[0]);
+            foreach($result[2] as &$val){
+                if($val=='access')$val='A';
+                else if($val=='trunk')$val='T';
+            }
+            F('Interface_'.$this->switch->getIp(),$result[0]);
             return ['no'=>1,'res'=>$result];
         }else{
             return ['no'=>2];
