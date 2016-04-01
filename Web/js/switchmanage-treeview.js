@@ -7,7 +7,7 @@ $(function () {
     var $tv;
     var countChecked;
     var revealSearch;
-    var listData = [
+    /*var listData = [
         {
             text: "西区",
             nodes: [
@@ -158,28 +158,30 @@ $(function () {
                 }
             ]
         }
-    ];
-    $tv = $('#listTree').treeview({
-        data: listData,
-        showIcon: false,
-        selectable: true,
-        showCheckbox: true,
-        tags: true,
-        onNodeChecked: function (event, node) {
-            if (node.nodes == undefined)
-                $('#checkable-output').append('<p name=' + node.text + '>' + node.text + '</p>');
-            checkchild(event.target, node);
-            countChecked = $("#checkable-output")[0].childElementCount;
-            $("#btn-wait-select").attr('disabled', countChecked <= 0);
+    ];*/
+    $.getJSON('/index.php/Manage/getTree',function(data){
+        $tv = $('#listTree').treeview({
+            data:data.data,
+            showIcon: false,
+            selectable: true,
+            showCheckbox: true,
+            tags: true,
+            onNodeChecked: function (event, node) {
+                if (node.nodes == undefined)
+                    $('#checkable-output').append('<p name=' + node.text + '>' + node.text + '</p>');
+                checkchild(event.target, node);
+                countChecked = $("#checkable-output")[0].childElementCount;
+                $("#btn-wait-select").attr('disabled', countChecked <= 0);
 
-        },
-        onNodeUnchecked: function (event, node) {
-            if (node.nodes == undefined)
-                $('#checkable-output p[name="' + node.text + '"]').remove();
-            uncheckchild(event.target, node);
-            countChecked = $("#checkable-output")[0].childElementCount;
-            $("#btn-wait-select").attr('disabled', countChecked <= 0);
-        }
+            },
+            onNodeUnchecked: function (event, node) {
+                if (node.nodes == undefined)
+                    $('#checkable-output p[name="' + node.text + '"]').remove();
+                uncheckchild(event.target, node);
+                countChecked = $("#checkable-output")[0].childElementCount;
+                $("#btn-wait-select").attr('disabled', countChecked <= 0);
+            }
+        });
     });
 //初始化并失活按钮
 //    $(".btn-wait-search").prop('disabled',true);

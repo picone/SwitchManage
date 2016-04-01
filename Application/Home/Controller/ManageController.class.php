@@ -34,6 +34,22 @@ class ManageController extends PublicController{
         }
     }
     
+    public function getTree(){
+        $data=D('DeviceView')->fetchAll();
+        $res=array();
+        foreach($data as &$val){
+            $res[$val['position_name']][]=$val['name'];
+        }
+        $data=[];
+        foreach($res as $key=>&$val){
+            foreach($val as &$ip){
+                $ip=['text'=>$ip];
+            }
+            $data[]=['text'=>$key,'nodes'=>$val];
+        }
+        $this->ajaxReturn(1,$data);
+    }
+    
     public function getInterface($ip,$cmd){
         $cmd=D('Command')->getCommand($cmd);
         if(!$cmd)$this->ajaxReturn(7);
