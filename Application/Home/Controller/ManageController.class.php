@@ -38,13 +38,10 @@ class ManageController extends PublicController{
         $data=D('DeviceView')->fetchAll();
         $res=array();
         foreach($data as &$val){
-            $res[$val['position_name']][]=$val['name'];
+            $res[$val['position_name']][]=['text'=>$val['device_name'],'tags'=>$val['ip']];
         }
         $data=[];
         foreach($res as $key=>&$val){
-            foreach($val as &$ip){
-                $ip=['text'=>$ip];
-            }
             $data[]=['text'=>$key,'nodes'=>$val];
         }
         $this->ajaxReturn(1,$data);

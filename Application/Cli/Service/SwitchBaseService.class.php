@@ -41,11 +41,22 @@ abstract class SwitchBaseService{
      */
     public function getInt($interface){
         if($interface==null){
-            $data=$this->exec('display interface');
+            $data=$this->switch->exec('display interface');
         }else{
-            $data=$this->exec('display interface '.$interface);
+            $data=$this->switch->exec('display interface '.$interface);
         }
-        return $data;
+        preg_match_all('/((Gigabit)?Ethernet\d(\/\d)?\/\d{1,2}) current state : (UP|DOWN)/',$data,$int);
+        array_shift($int);
+        array_splice($int,1,2);
+        preg_match_all('/Last 300 seconds input:.\s+(\d+)\s+packets\/sec\s+(\d+)\s+bytes\/sec/',$data,$speed_input);
+        array_shift($speed_input);
+        preg_match_all('/Last 300 seconds output:.\s+(\d+)\s+packets\/sec\s+(\d+)\s+bytes\/sec/',$data,$speed_output);
+        array_shift($speed_output);
+        preg_match_all('/Input(total):\s+(\d+) packets/',$data,$input_packets);
+        $input_packets=$input_packets[1];
+        preg_match_all('/Input:\s+(\d+) input errors/',$data,$input_error);
+        $input_error=$input_error[1];
+        return ['int'=>$int,'speed_input'=>$speed_input,'speed_output'=>$speed_output,'input_packets'=>$input_packets,'input_error'=>$input_error];
     }
 
     /**
@@ -69,6 +80,12 @@ abstract class SwitchBaseService{
         $data=substr($data,strlen($cmd)+2);
         return ['str'=>str_replace("---- More ----\x1b[42D                                          \x1b[42D",'',$data)];
     }
+
+    /**
+     * 获取日志
+     * @return array
+     */
+    abstract public function getLog();
 
     /**
      * 重启交换机
