@@ -13,8 +13,11 @@
         <hr>
         {:W('Command/showCommand')}
         <hr/>
-        <div class="container-fluid">
+        <div class="container-fluid" id="result">
             {:W('Command/render',array($_GET['cmd'],$data))}
         </div>
     </div>
+</block>
+<block name="extern_js">
+    <script type="text/javascript" src="__PUBLIC__/js/detail.js"></script>
 </block>

@@ -1,21 +1,20 @@
 /**
  * Created by King-z on 2016/1/29 0029.
  */
-
-
 $(function () {
     var $tv;
-    var countChecked;
     var revealSearch;
-    /*var listData = [
+    /* var listData = [
         {
             text: "西区",
             nodes: [
                 {
                     text: "西一",
+     tags:['东边'],
                     nodes: [
                         {
-                            text: "172.16.121.1"
+     text: "172.16.121.1",
+     tags:['一楼']
                         },
                         {
                             text: "172.16.121.2"
@@ -160,31 +159,26 @@ $(function () {
         }
     ];*/
     $.getJSON('/index.php/Manage/getTree',function(data){
+        console.log(data);
         $tv = $('#listTree').treeview({
             data:data.data,
+            //data:listData,
             showIcon: false,
             selectable: true,
-            showCheckbox: true,
             tags: true,
-            onNodeChecked: function (event, node) {
-                if (node.nodes == undefined)
-                    $('#checkable-output').append('<p name=' + node.text + '>' + node.text + '</p>');
-                checkchild(event.target, node);
-                countChecked = $("#checkable-output")[0].childElementCount;
-                $("#btn-wait-select").attr('disabled', countChecked <= 0);
-
+            showTags: true,
+            onNodeSelected: function (even, node) {
+                var isChild = ifchild(node);
+                $("#btn-wait-select").attr('disabled', !isChild);
+                if (isChild) $('#checkable-output').append('<p name=' + node.text + '>' + node.text + '</p>');
             },
-            onNodeUnchecked: function (event, node) {
-                if (node.nodes == undefined)
-                    $('#checkable-output p[name="' + node.text + '"]').remove();
-                uncheckchild(event.target, node);
-                countChecked = $("#checkable-output")[0].childElementCount;
-                $("#btn-wait-select").attr('disabled', countChecked <= 0);
+            onNodeUnselected: function (even, node) {
+                $('#checkable-output p[name="' + node.text + '"]').remove();
             }
+
         });
     });
 //初始化并失活按钮
-//    $(".btn-wait-search").prop('disabled',true);
     $(".btn-wait-search").attr('disabled', true);
     $("#btn-wait-select").attr('disabled', true);
 
@@ -219,7 +213,6 @@ $(function () {
         if (checknode.nodes) array = getid(checknode.nodes);
         $(tid).treeview('checkNode', [array]);
     }
-
     //uncheck child
     function uncheckchild(tid, checknode) {
         var array = [];
@@ -227,6 +220,10 @@ $(function () {
         $(tid).treeview('uncheckNode', [array]);
     }
 
+    function ifchild(node) {
+        if (node.nodes) return false;
+        else return true;
+    }
     //search btn
     $("#btn-cResult").click(function () {
         revealSearch = search();
@@ -243,32 +240,22 @@ $(function () {
         console.dir("mode:" + state);
         console.dir(selNode);
     };
-    var checkSel;
-    /*选中 取消选中的按钮功能*/
-    $("#btn-checkonselect").click(function () {
-        checkSel = checkonselect("checkNode");
-    });
-    $("#btn-uncheckonselect").click(function () {
-        checkSel = checkonselect('uncheckNode');
-    });
-    $("#btn-uncheakall").click(function () {
-        checkSel = checkonselect('uncheckAll');
-    });
     /*下一步按钮绑定*/
     $("#btn-wait-select").click(function () {
-        alert("click");
-        $check = document.getElementById('checkable-output');
-        countChecked = $check.childElementCount;
-        if (countChecked == 1) {
-            var ipNum = $check.innerText;
-            ipNum = ip2int(ipNum);
-            document.getElementById('btn-wait-select').href = "Manage/detail/ip/" + ipNum;
-        } else if (countChecked >= 2) {
-            var ipNum = [];
-            alert("选择了多台交换机");
+        console.log($(this).attr('disabled'));
+        if (!$(this).attr('disabled')) {
+            var selected = $tv.treeview('getSelected');
+            console.log(selected[0].text);
+            if (ifchild(selected)) {
+                var ipNum = selected[0].text;
+                ipNum = ip2int(ipNum);
+                document.getElementById('btn-wait-select').href = "Manage/detail/ip/" + ipNum + "/cmd/1";
+            }
+        }
+        else {
+            document.getElementById('btn-wait-select').href = "#";
 
         }
-
     })
 });
 function ip2int(ip) {
