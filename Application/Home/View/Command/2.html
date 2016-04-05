@@ -1,4 +1,3 @@
-<!--{$str|str_replace='\\r\\n','<br/>',###}-->
 <div class="table-responsive">
     <table class="table table-condensed">
         <thead>
@@ -11,9 +10,10 @@
             <th>5分钟内发送速率</th>
             <th>输入包数</th>
             <th>输入包错误数</th>
-            <!--     <th>输出包数</th>
-                 <th>输出包错误数</th>
-                 <th>丢包率</th>-->
+            <th>输入错包率</th>
+             <th>输出包数</th>
+             <th>输出包错误数</th>
+             <th>丢包率</th>
         </tr>
         </thead>
         <tbody>
@@ -27,9 +27,11 @@
                 <td>{$speed_output[1][$key]}</td>
                 <td>{$input_packets[$key]}</td>
                 <td>{$input_error[$key]}</td>
-                <!--         <td></td>
-                         <td></td>
-                         <td></td>-->
+                <td>{$input_packets[$key]>0?round($input_error[$key]/$input_packets[$key]*100,2):0}</td>
+                <td>{$output_packets[$key]}</td>
+                <td>{$output_error[$key]}</td>
+                <td>{$output_packets[$key]>0?round($output_error[$key]/$output_packets[$key]*100):0}</td>
+             <td></td>
             </tr>
         </foreach>
         </tbody>
