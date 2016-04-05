@@ -31,6 +31,7 @@ abstract class SwitchBaseService{
             array_shift($match);
             $result['online_list']=$match;
         }
+        $result['version']=D('Device')->getVersion(ip2long($this->switch->getIp()));
         return $result;
     }
 
@@ -140,6 +141,10 @@ abstract class SwitchBaseService{
         }else{
             return null;
         }
+    }
+    
+    public function getSwitch(){
+        return $this->switch;
     }
 
     /**
