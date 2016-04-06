@@ -79,6 +79,8 @@ class ManageController extends PublicController{
     }
     
     public function connect($ip){
+        $data=D('Device')->get(ip2long($ip));
+        if($data['val']<0)$this->ajaxReturn(8);
         $client=new \swoole_client(SWOOLE_TCP,SWOOLE_SYNC);
         if(!$client->connect(C('SERVICE_IP'),C('SERVICE_PORT'),10)||!$client->send(json_encode(['act'=>'TestConnect','ip'=>$ip])))$this->ajaxReturn(10);
         $c=5;

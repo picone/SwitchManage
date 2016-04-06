@@ -5,7 +5,7 @@ class ListController extends PublicController{
         $data=D('DeviceView')->fetchAll();
         $res=array();
         foreach($data as &$val){
-            $res[$val['position_name']][]=array('ip'=>$val['ip'],'name'=>$val['device_name'],'status'=>$val['val']>=0);
+            $res[$val['position_name']][]=['ip'=>$val['ip'],'name'=>$val['device_name'],'status'=>$val['val']];
         }
         unset($data);
         $this->assign('data',$res);

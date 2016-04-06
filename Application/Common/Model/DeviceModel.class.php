@@ -12,11 +12,12 @@ class DeviceModel extends \Think\Model{
     }
 
     public function setVal($ip,$val,$time=0){
+        $ip=ip2long($ip);
         if($val<0){//宕机
             $data=$this->field('val')->where('ip=%d',$ip)->find();
             if($data['val']<0)return true;
         }
-        return $this->where('ip=%d',ip2long($ip))->save(array(
+        return $this->where('ip=%d',$ip)->save(array(
             'val'=>$val,
             'update_time'=>$time==0?NOW_TIME:$time
         ));
@@ -36,5 +37,9 @@ class DeviceModel extends \Think\Model{
     
     public function getVersionId($ip){
         return $this->cache(true)->field('version_id')->where('ip=%d',$ip)->find()['version_id'];
+    }
+    
+    public function get($ip){
+        return $this->field('val')->where('ip=%d',$ip)->find();
     }
 }
