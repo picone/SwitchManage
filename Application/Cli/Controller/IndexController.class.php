@@ -7,8 +7,6 @@ class IndexController extends \Think\Controller{
 
     const INTERVAL_PING=60000;
 
-    private $conn;
-
     public function index(){
         $server=new \swoole_server(C('SERVICE_IP'),C('SERVICE_PORT'));
         $server->set(array(
@@ -58,10 +56,7 @@ class IndexController extends \Think\Controller{
             //$server->sendMessage($data,$server->worker_id-1);
             $data=json_decode($data,true);
             if($data['act']=='Telnet'&&isset($data['ip'])&&isset($data['cmd'])){//执行命令
-                if(!isset($this->conn[$data->ip])){
-                    $this->conn[$data['ip']]=TelnetEvent::getService($data['ip']);
-                }
-                $service=$this->conn[$data['ip']];
+                $service=TelnetEvent::getService($data['ip']);
                 if($service==null){
                     $result['code']=2;
                 }else{
@@ -79,10 +74,7 @@ class IndexController extends \Think\Controller{
                 $server->send($fd,json_encode($result),$from_id);
                 //$server->sendMessage(json_encode($result),$server->worker_id-1);
             }else if($data['act']=='TestConnect'&&isset($data['ip'])){
-                if(!isset($this->conn[$data->ip])){
-                    $this->conn[$data['ip']]=TelnetEvent::getService($data['ip']);
-                }
-                $service=$this->conn[$data['ip']];
+                $service=TelnetEvent::getService($data['ip']);
                 if($service==null){
                     $result['code']=2;
                 }else{

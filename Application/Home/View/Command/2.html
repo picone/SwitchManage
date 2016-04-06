@@ -22,15 +22,15 @@
                 <td>{$val}</td>
                 <td>{$int[1][$key]}</td>
                 <td>{$speed_input[0][$key]}</td>
-                <td>{$speed_input[1][$key]}</td>
+                <td>{$speed_input[1][$key]|byte_format}</td>
                 <td>{$speed_output[0][$key]}</td>
-                <td>{$speed_output[1][$key]}</td>
+                <td>{$speed_output[1][$key]|byte_format}</td>
                 <td>{$input_packets[$key]}</td>
                 <td>{$input_error[$key]}</td>
-                <td>{$input_packets[$key]>0?round($input_error[$key]/$input_packets[$key]*100,2):0}</td>
+                <td>{$input_packets[$key]>0?round($input_error[$key]/($input_error[$key]+$input_packets[$key])*100,2):0}</td>
                 <td>{$output_packets[$key]}</td>
                 <td>{$output_error[$key]}</td>
-                <td>{$output_packets[$key]>0?round($output_error[$key]/$output_packets[$key]*100):0}</td>
+                <td>{$output_packets[$key]>0?round($output_error[$key]/($output_error[$key]+$output_packets[$key])*100):0}</td>
              <td></td>
             </tr>
         </foreach>
