@@ -8,10 +8,21 @@ $(function () {
             if(data.code==1){
                 window.location=data.data.url;
             }else{
-                alert(data.msg);
-                if(data.code==5){
-                    $('#verify_img').trigger('click');
-                    $('#verify_code').val('').focus();
+                $('#login-result').attr('class', "alert alert-danger");
+
+                $('#login-result').text(data.msg);
+                //alert(data.msg);
+                $('#verify_img').click();
+                switch (data.code) {
+                    case 3:
+                        $('#verify_code').val('');
+                        $('#password').val("").focus();
+                        break;
+                    case 5:
+                        $('#verify_code').val('').focus();
+                        break;
+                    default :
+                        break;
                 }
                 return false;
             }

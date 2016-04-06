@@ -41,7 +41,7 @@
             <li class="dropdown ">
                 <a href="#" class="dropdown-toggle " data-toggle="dropdown">管理员<b class="caret"></b></a><!--dropdown father-->
                 <ul class="dropdown-menu"><!--main dropdown menu-->
-                    <li><a href="#">系统设置</a></li>
+                    <li><a href="#"  data-toggle="modal" data-target="#cpwdmodal">系统设置</a></li>
                     <!--修改密码-->
                     <li><a href="#">日志管理</a></li>
                     <li><a href="#">注销</a></li>
@@ -50,6 +50,55 @@
         </ul>
     </div>
 </nav>
+<div class="modal fade" id="cpwdmodal" tabindex="-1" role="dialog" aria-labelledby="cPwdModalTitle"
+     aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss='modal' aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="cPwdModalTitle">修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form name="formPwd" id="formPwd" method="post" class="form-horizontal">
+                        <div class="form-group ">
+                            <label for="oldPwd" class="col-sm-3 control-label">原密码</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="oldPwd" placeholder="请输入原密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newPwd" class="col-sm-3 control-label">新密码</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="newPwd" placeholder="请输入新密码">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="confirmNewPwd" class="col-sm-3 control-label">确认新密码</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control " id="confirmNewPwd" placeholder="请再次输入新密码">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--<form class="form-control"></form>-->
+                <!--原密码：<input type="password" class="form-control">-->
+                <!--新密码：<input type="password" class="form-control">-->
+                <!--确认新密码：<input type="password" class="form-control">-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info">
+                    确认
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    清除
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--top sidebar end-->
 <div class="content" style="min-height: 1000px">
     <ul class="breadcrumb">

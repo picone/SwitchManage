@@ -32,7 +32,8 @@
         </ul>
         <ul class="nav navbar-nav navbar-right" id="">
             <li class="dropdown ">
-                <a href="#" class="dropdown-toggle " data-toggle="dropdown">管理员<b class="caret"></b></a><!--dropdown father-->
+                <a href="#" class="dropdown-toggle " data-toggle="dropdown">管理员<b class="caret"></b></a>
+                <!--dropdown father-->
                 <ul class="dropdown-menu"><!--main dropdown menu-->
                     <li><a href="#">系统设置</a></li>
                     <!--修改密码-->
@@ -53,11 +54,51 @@
     <!--面包屑-->
     <div class="container-fluid">
         <div class="list-group ">
-            <div class="list-group-item">型号</div>
-            <div class="list-group-item ">运行时间</div>
+            <div class="list-group-item">
+                <div class="row ">
+                    <div class="col-xs-6 col-sm-3">型号：</div>
+                    <div class="col-xs-6 col-sm-9">型号：</div>
+                </div> </div>
+            <a class="list-group-item">
+             <div class="row">
+                 <div class="col-xs-12 col-sm-3">运行时间:</div>
+                 <div class="col-xs-12 col-sm-9">5 weeks,6 days,23 hours,11 minutes</div>
+             </div>
+               </a>
+            <a class="list-group-item">
+                <div class="row">
+                    <div class="col-xs-8 col-sm-3">最近五分钟CPU平均占用：</div>
+                    <div class="col-xs-4 col-sm-9">5 %</div>
+                </div>
+            </a>
             <div class="list-group-item ">cpu</div>
             <div class="list-group-item ">温度</div>
-            <div class="list-group-item ">在线用户数</div>
+            <a class="list-group-item" data-toggle="collapse" data-target="#conn">在线用户数</a>
+            <div class="collapse" id="conn">
+                <a class="list-group-item">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4">用户名:3114000686</div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">MAC地址:f076-1c0b-1cc4</div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">IP:10.10.29.138</div>
+                    </div>
+                   <!-- 用户名:3114000686 | MAC地址:f076-1c0b-1cc4 | IP:10.10.29.138--> </a>
+                <a class="list-group-item">
+                    用户名:3112000287 MAC地址:2047-4775-e636 IP:10.10.29.133 </a>
+                <a class="list-group-item">
+                    用户名:3112000302 MAC地址:dc0e-a1e8-7863 IP:10.10.29.132 </a>
+                <a class="list-group-item">
+                    用户名:3112000284 MAC地址:ac22-0b05-f3b1 IP:10.10.29.140 </a>
+                <a class="list-group-item">
+                    用户名:3112000308 MAC地址:3085-a971-f11e IP:10.10.29.130 </a>
+                <a class="list-group-item">
+                    用户名:3112000297 MAC地址:7845-c4ba-bc52 IP:10.10.29.134 </a>
+                <a class="list-group-item">
+                    用户名:3112000298 MAC地址:f076-1cce-cf83 IP:10.10.29.135 </a>
+                <a class="list-group-item">
+                    用户名:3112000307 MAC地址:0090-f5d8-8684 IP:10.10.29.136 </a>
+                <a class="list-group-item">
+                    用户名:3112000290 MAC地址:2892-4a45-202d IP:10.10.29.139 </a>
+            </div>
             .....
         </div>
         跳转到配置

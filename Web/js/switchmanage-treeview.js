@@ -4,7 +4,9 @@
 $(function () {
     var $tv;
     var revealSearch;
-    /* var listData = [
+
+    toastr.warning("暂时使用预设交换机列表");
+    var listData = [
         {
             text: "西区",
             nodes: [
@@ -157,12 +159,12 @@ $(function () {
                 }
             ]
         }
-    ];*/
+    ];
     $.getJSON('/index.php/Manage/getTree',function(data){
         console.log(data);
         $tv = $('#listTree').treeview({
-            data:data.data,
-            //data:listData,
+            //data:data.data,
+            data: listData,
             showIcon: false,
             selectable: true,
             tags: true,
@@ -249,7 +251,25 @@ $(function () {
             if (ifchild(selected)) {
                 var ipNum = selected[0].text;
                 ipNum = ip2int(ipNum);
-                document.getElementById('btn-wait-select').href = "Manage/detail/ip/" + ipNum + "/cmd/1";
+                $.ajax({
+                    url: "Manage/detail/ip/" + ipNum + "/cmd/1",
+                    beforeSend: function () {
+                        toastr.info("正在连接");
+                    },
+                    success: function (data) {
+                        if (data.hasOwnProperty("code")) {
+                            toastr.error(data.code.info);
+                            return false;
+                        }
+                        window.location = "Manage/detail/ip/" + ipNum + "/cmd/1";
+                    },
+                    error: function (data) {
+                        console.log(data);
+                        toastr.error("无法连接");
+                        return false;
+                    }
+                });
+                //document.getElementById('btn-wait-select').href = "Manage/detail/ip/" + ipNum + "/cmd/1";
             }
         }
         else {

@@ -1,5 +1,7 @@
 <select name="cmd" class="form-control">
     <foreach name="data" item="val">
-        <option value="{$val.id}">{$val.name}</option>
+        <option value="{$val.id}"
+        <eq name="val.id" value="$cmd">selected="selected"</eq>
+        >{$val.name}</option>
     </foreach>
 </select>
