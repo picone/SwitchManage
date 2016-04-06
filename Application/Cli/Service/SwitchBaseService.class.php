@@ -31,6 +31,7 @@ abstract class SwitchBaseService{
             array_shift($match);
             $result['online_list']=$match;
         }
+        $result['version']=D('Device')->getVersion(ip2long($this->switch->getIp()));
         return $result;
     }
 
@@ -45,18 +46,23 @@ abstract class SwitchBaseService{
         }else{
             $data=$this->switch->exec('display interface '.$interface);
         }
-        preg_match_all('/((Gigabit)?Ethernet\d(\/\d)?\/\d{1,2}) current state : (UP|DOWN)/',$data,$int);
-        array_shift($int);
-        array_splice($int,1,2);
-        preg_match_all('/Last 300 seconds input:.\s+(\d+)\s+packets\/sec\s+(\d+)\s+bytes\/sec/',$data,$speed_input);
-        array_shift($speed_input);
-        preg_match_all('/Last 300 seconds output:.\s+(\d+)\s+packets\/sec\s+(\d+)\s+bytes\/sec/',$data,$speed_output);
-        array_shift($speed_output);
-        preg_match_all('/Input(total):\s+(\d+) packets/',$data,$input_packets);
-        $input_packets=$input_packets[1];
-        preg_match_all('/Input:\s+(\d+) input errors/',$data,$input_error);
-        $input_error=$input_error[1];
-        return ['int'=>$int,'speed_input'=>$speed_input,'speed_output'=>$speed_output,'input_packets'=>$input_packets,'input_error'=>$input_error];
+        $res=array();
+        preg_match_all('/((Gigabit)?Ethernet\d([\/\\\\]\d)?[\/\\\\]\d{1,2})\s+current state\s?:\s(UP|DOWN)/',$data,$res['int']);
+        array_shift($res['int']);
+        array_splice($res['int'],1,2);
+        preg_match_all('/Last 300 seconds input:.\s+(\d+)\s+packets\/sec\s+(\d+)\s+bytes\/sec/',$data,$res['speed_input']);
+        array_shift($res['speed_input']);
+        preg_match_all('/Last 300 seconds output:.\s+(\d+)\s+packets\/sec\s+(\d+)\s+bytes\/sec/',$data,$res['speed_output']);
+        array_shift($res['speed_output']);
+        preg_match_all('/Input\s?\(total\)\s?:\s+(\d+)/',$data,$res['input_packets']);
+        $res['input_packets']=$res['input_packets'][1];
+        preg_match_all('/Input:\s+(\d+) input errors/',$data,$res['input_error']);
+        $res['input_error']=$res['input_error'][1];
+        preg_match_all('/Output\s?\(total\)\s?:\s+(\d+)/',$data,$res['output_packets']);
+        $res['output_packets']=$res['output_packets'][1];
+        preg_match_all('/Output:\s+(\d+) output errors/',$data,$res['output_error']);
+        $res['output_error']=$res['output_error'][1];
+        return $res;
     }
 
     /**
@@ -135,6 +141,10 @@ abstract class SwitchBaseService{
         }else{
             return null;
         }
+    }
+    
+    public function getSwitch(){
+        return $this->switch;
     }
 
     /**

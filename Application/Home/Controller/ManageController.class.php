@@ -30,7 +30,7 @@ class ManageController extends PublicController{
                 $this->error('暂不支持该命令');
                 break;
             default:
-                $this->error('接收数据错误');
+                $this->error('暂不能提供服务');
         }
     }
     
@@ -38,7 +38,7 @@ class ManageController extends PublicController{
         $data=D('DeviceView')->fetchAll();
         $res=array();
         foreach($data as &$val){
-            $res[$val['position_name']][]=['text'=>$val['device_name'],'tags'=>$val['ip']];
+            $res[$val['position_name']][]=['text'=>long2ip($val['ip']),'tags'=>$val['device_name']];
         }
         $data=[];
         foreach($res as $key=>&$val){
@@ -64,16 +64,49 @@ class ManageController extends PublicController{
         }
         $this->ajaxReturn(1,$data);
     }
+
+    public function command($ip,$cmd,$int=null){
+        if($int==null)
+            $data=$this->exec(array('ip'=>$ip,'cmd'=>$cmd));
+        else
+            $data=$this->exec(array('ip'=>$ip,'cmd'=>$cmd,'arg'=>$int));
+        if($data&&$data['code']==1){
+            $this->assign('data',$data['data']);
+            $this->display();
+        }else{
+            header('HTTP/1.1 503 Service Unavailable');
+        }
+    }
+    
+    public function connect($ip){
+        $client=new \swoole_client(SWOOLE_TCP,SWOOLE_SYNC);
+        if(!$client->connect(C('SERVICE_IP'),C('SERVICE_PORT'),10)||!$client->send(json_encode(['act'=>'TestConnect','ip'=>$ip])))$this->ajaxReturn(10);
+        $c=5;
+        $str='';
+        do{
+            $str.=$client->recv();
+            $data=json_decode($str,true);
+        }while($c-->0&&!isset($data['code']));
+        $client->close();
+        switch($data['code']){
+            case 1:
+                $this->ajaxReturn(1);
+                break;
+            case 2:
+                $this->ajaxReturn(6);
+                break;
+            case 3:
+                $this->ajaxReturn(8);
+                break;
+            default:
+                $this->ajaxReturn(10);
+        }
+    }
     
     private function exec($cmd){
         $cmd['act']='Telnet';
         $client=new \swoole_client(SWOOLE_TCP,SWOOLE_SYNC);
-        if(!$client->connect(C('SERVICE_IP'),C('SERVICE_PORT'),10)){
-            $this->error('服务未启动');
-        }
-        if(!$client->send(json_encode($cmd))){
-            $this->error('发送命令失败');
-        }
+        if(!$client->connect(C('SERVICE_IP'),C('SERVICE_PORT'),10)||!$client->send(json_encode($cmd)))return false;
         $c=5;
         $str='';
         do{

@@ -11,7 +11,8 @@ class PublicController extends \Think\Controller{
         6=>'请求IP有误',
         7=>'命令不存在',
         8=>'连接交换机失败',
-        9=>'获取交换机接口失败'
+        9=>'获取交换机接口失败',
+        10=>'后台服务未启动'
     );
 
     /**
