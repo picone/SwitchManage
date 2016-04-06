@@ -8,7 +8,8 @@
     <div class="content">
         <ul class="breadcrumb">
             <li><a href="__APP__/{$Think.CONTROLLER_NAME}">交换机列表</a></li>
-            <li><a href="#">详细信息</a></li>
+            <li><a href="#">{$Think.get.ip|long2ip}
+            </a></li>
         </ul>
         <hr>
         {:W('Command/showCommand')}

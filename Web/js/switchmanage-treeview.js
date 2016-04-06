@@ -156,6 +156,26 @@ $(function () {
                             text: "172.16.102.5"
                         }
                     ]
+                },
+                {
+                    text: "东十四",
+                    nodes: [
+                        {
+                            text: "172.16.115.1"
+                        },
+                        {
+                            text: "172.16.115.2"
+                        },
+                        {
+                            text: "172.16.115.3"
+                        },
+                        {
+                            text: "172.16.115.4"
+                        },
+                        {
+                            text: "172.16.115.5"
+                        }
+                    ]
                 }
             ]
         }
@@ -171,6 +191,7 @@ $(function () {
             showTags: true,
             onNodeSelected: function (even, node) {
                 var isChild = ifchild(node);
+                $(".nodeToggle").attr('disabled', isChild);
                 $("#btn-wait-select").attr('disabled', !isChild);
                 if (isChild) $('#checkable-output').append('<p name=' + node.text + '>' + node.text + '</p>');
             },
@@ -182,6 +203,7 @@ $(function () {
     });
 //初始化并失活按钮
     $(".btn-wait-search").attr('disabled', true);
+    $('.nodeToggle').attr('disabled', true);
     $("#btn-wait-select").attr('disabled', true);
 
     var search = function (e) {
@@ -226,6 +248,8 @@ $(function () {
         if (node.nodes) return false;
         else return true;
     }
+
+    /*如果是ip地址 不是楼栋 return true*/
     //search btn
     $("#btn-cResult").click(function () {
         revealSearch = search();
@@ -242,7 +266,17 @@ $(function () {
         console.dir("mode:" + state);
         console.dir(selNode);
     };
+    /*展开收缩按钮绑定*/
+    $('#btn-collapse').click(function () {
+        var selected = $tv.treeview('getSelected');
+        $tv.treeview('collapseNode', selected);
+    });
+    $('#btn-expand').click(function () {
+        var selected = $tv.treeview('getSelected');
+        $tv.treeview('expandNode', selected);
+    });
     /*下一步按钮绑定*/
+    /*请求尝试*/
     $("#btn-wait-select").click(function () {
         console.log($(this).attr('disabled'));
         if (!$(this).attr('disabled')) {
@@ -252,29 +286,28 @@ $(function () {
                 var ipNum = selected[0].text;
                 ipNum = ip2int(ipNum);
                 $.ajax({
-                    url: "Manage/detail/ip/" + ipNum + "/cmd/1",
+                    url: "Manage/connect/ip/" + ipNum,
                     beforeSend: function () {
                         toastr.info("正在连接");
                     },
                     success: function (data) {
-                        if (data.hasOwnProperty("code")) {
-                            toastr.error(data.code.info);
+                        if (data.code != 1) {
+                            toastr.error(data.msg);
                             return false;
+                        } else {
+                            window.location = "Manage/detail/ip/" + ipNum + "/cmd/1";
                         }
-                        window.location = "Manage/detail/ip/" + ipNum + "/cmd/1";
                     },
                     error: function (data) {
                         console.log(data);
-                        toastr.error("无法连接");
+                        toastr.error("网络出错 请检查网络状态");
                         return false;
                     }
                 });
-                //document.getElementById('btn-wait-select').href = "Manage/detail/ip/" + ipNum + "/cmd/1";
             }
         }
         else {
             document.getElementById('btn-wait-select').href = "#";
-
         }
     })
 });

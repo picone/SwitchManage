@@ -1,5 +1,4 @@
-{$Think.get.ip|long2ip}
-<select name="cmd" class="form-control">
+<select id="selCmd" class="form-control" name="{$ip}">
     <foreach name="data" item="val">
         <option value="{$val.id}"
         <eq name="val.id" value="$cmd">selected="selected"</eq>

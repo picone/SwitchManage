@@ -1,7 +1,8 @@
 $(function () {
-    $("select[name='cmd']").change(function (e) {
+    var ip;
+    $("#selCmd").change(function (e) {
         var cmd = $(this).val();
-
+        ip = this.name;
         switch (cmd) {
             case "1":
                 //alert("1");
@@ -22,25 +23,25 @@ $(function () {
         }
 
     })
-});
-function toPage(num) {
-    $.ajax({
-        url: num,
-        beforeSend: function () {
-            toastr.info("正在连接");
-        },
-        success: function (data) {
-            if (data.hasOwnProperty("code")) {
-                toastr.error(data.code.info);
+    function toPage(num) {
+        var url = "/index.php/Manage/command/ip/" + ip +
+            "/cmd/" + num;
+        var $toaInfo;
+
+        $.ajax({
+            url: url,
+            beforeSend: function () {
+                $toaInfo = toastr.info("正在尝试连接", "", {timeOut: 60000});
+            },
+            success: function (data) {
+                $('#result').html(data);
+                toastr.clear($toaInfo);
+                toastr.success("加载成功");
+            },
+            error: function () {
+                toastr.error("连接超时");
                 return false;
             }
-            toastr.success("成功 正在跳转");
-            window.location = num;
-        },
-        error: function (data) {
-            console.log(data);
-            toastr.error("无法连接");
-            return false;
-        }
-    });
-}
+        });
+    };
+});
