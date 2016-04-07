@@ -646,7 +646,7 @@
             }
         },
         credits: {
-            enabled: !0,
+            enabled: 0,
             text: "Highcharts.com",
             href: "http://www.highcharts.com",
             position: {align: "right", x: -10, verticalAlign: "bottom", y: -5},

@@ -20,7 +20,7 @@ $(function () {
     $("#List a[name='ipList']").each(function () {
         $(this).click(function () {
             if (window.innerWidth < 767) {
-                $(this).attr('href', "singlestate.html");
+                //$(this).attr('href', "singlestate.html");
             } else {
 
                 var ipId = this.dataset.ip;
