@@ -42,6 +42,7 @@ class Switch_1_Service extends SwitchBaseService{
      * @return array
      */
     public function getLog(){
-        // TODO: Implement getLog() method.
+        $data=$this->switch->exec('display logbuffer');
+        return ['str'=>$data];
     }
 }

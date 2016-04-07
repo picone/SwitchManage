@@ -22,7 +22,7 @@
                             <foreach name="position" item="val">
                                 <a class="list-group-item" href="#" name="ipList" data-ip="{$val.ip}">
                                     {$val.name}
-                                    <if condition="$val.status">
+                                    <if condition="$val.status egt 0">
                                         <span class="badge alert-success">up</span>
                                         <else/>
                                         <span class="badge alert-danger">down</span>
