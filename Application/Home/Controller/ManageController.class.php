@@ -33,12 +33,27 @@ class ManageController extends PublicController{
                 $this->error('暂不能提供服务');
         }
     }
+
+    private function exec($cmd)
+    {
+        $cmd['act'] = 'Telnet';
+        $client = new \swoole_client(SWOOLE_TCP, SWOOLE_SYNC);
+        if (!$client->connect(C('SERVICE_IP'), C('SERVICE_PORT'), 10) || !$client->send(json_encode($cmd))) return false;
+        $c = 5;
+        $str = '';
+        do {
+            $str .= $client->recv();
+            $data = json_decode($str, true);
+        } while ($c-- > 0 && !isset($data['code']));
+        $client->close();
+        return $data;
+    }
     
     public function getTree(){
         $data=D('DeviceView')->fetchAll();
         $res=array();
         foreach($data as &$val){
-            $res[$val['position_name']][]=['text'=>long2ip($val['ip']),'tags'=>$val['device_name']];
+            $res[$val['position_name']][] = ['text' => long2ip($val['ip']), 'tags' => [$val['device_name']]];
         }
         $data=[];
         foreach($res as $key=>&$val){
@@ -46,7 +61,7 @@ class ManageController extends PublicController{
         }
         $this->ajaxReturn(1,$data);
     }
-    
+
     public function getInterface($ip,$cmd){
         $cmd=D('Command')->getCommand($cmd);
         if(!$cmd)$this->ajaxReturn(7);
@@ -79,8 +94,6 @@ class ManageController extends PublicController{
     }
     
     public function connect($ip){
-        $data=D('Device')->get(ip2long($ip));
-        if($data['val']<0)$this->ajaxReturn(8);
         $client=new \swoole_client(SWOOLE_TCP,SWOOLE_SYNC);
         if(!$client->connect(C('SERVICE_IP'),C('SERVICE_PORT'),10)||!$client->send(json_encode(['act'=>'TestConnect','ip'=>$ip])))$this->ajaxReturn(10);
         $c=5;
@@ -103,19 +116,5 @@ class ManageController extends PublicController{
             default:
                 $this->ajaxReturn(10);
         }
-    }
-    
-    private function exec($cmd){
-        $cmd['act']='Telnet';
-        $client=new \swoole_client(SWOOLE_TCP,SWOOLE_SYNC);
-        if(!$client->connect(C('SERVICE_IP'),C('SERVICE_PORT'),10)||!$client->send(json_encode($cmd)))return false;
-        $c=5;
-        $str='';
-        do{
-            $str.=$client->recv();
-            $data=json_decode($str,true);
-        }while($c-->0&&!isset($data['code']));
-        $client->close();
-        return $data;
     }
 }

@@ -16,7 +16,8 @@
                     <!--{$positionId=1}-->
                     <foreach name="data" item="position">
                         <a class="list-group-item" data-toggle="collapse" href="#position{++$positionId}"><span
-                                class="glyphicon glyphicon-align-justify"> {$key}</span> </a>
+                                class="glyphicon glyphicon-align-justify"> {$key}</span><span
+                                id="positionStatus{$positionId}"></span> </a>
 
                         <div class="collapse" id="position{$positionId}">
                             <foreach name="position" item="val">
@@ -24,8 +25,13 @@
                                     {$val.name}
                                     <if condition="$val.status egt 0">
                                         <span class="badge alert-success">up</span>
+
                                         <else/>
                                         <span class="badge alert-danger">down</span>
+                                        <script type="text/javascript">
+                                            document.getElementById('positionStatus{$positionId}').innerHTML = "有宕机";
+                                            document.getElementById('positionStatus{$positionId}').className = "badge alert-danger";
+                                        </script>
                                     </if>
                                 </a>
                             </foreach>

@@ -183,12 +183,13 @@ $(function () {
     $.getJSON('/index.php/Manage/getTree',function(data){
         console.log(data);
         $tv = $('#listTree').treeview({
-            //data:data.data,
-            data: listData,
+            data: data.data,
+            //data: listData,
             showIcon: false,
             selectable: true,
             tags: true,
             showTags: true,
+            levels: 1,
             onNodeSelected: function (even, node) {
                 var isChild = ifchild(node);
                 $(".nodeToggle").attr('disabled', isChild);
@@ -287,6 +288,7 @@ $(function () {
                 ipNum = ip2int(ipNum);
                 $.ajax({
                     url: "Manage/connect/ip/" + ipNum,
+                    timeout: 5000,
                     beforeSend: function () {
                         toastr.info("正在连接");
                     },
@@ -300,7 +302,7 @@ $(function () {
                     },
                     error: function (data) {
                         console.log(data);
-                        toastr.error("网络出错 请检查网络状态");
+                        toastr.error("请求超时");
                         return false;
                     }
                 });
