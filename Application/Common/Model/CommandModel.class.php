@@ -13,7 +13,7 @@ class CommandModel extends \Think\Model{
     }
 
     public function fetchCommand(){
-        return $this->cache(true)->field('id,name,description')->select();
+        return $this->cache(true)->field('id,name,description,arg_type')->select();
     }
     
     public function getCommand($id){

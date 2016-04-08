@@ -61,6 +61,17 @@ class AdminController extends \Think\Controller{
     }
 
     public function addIp(){
-
+        $a=14;
+        $b=24;
+        for($i=1;$i<=$b;$i++){
+            // 'ip','position_id','version_id','name','val','update_time'
+            $ip='172.16.1'.(20+$a).'.'.$i;
+            D('Device')->add(array(
+                'ip'=>ip2long($ip),
+                'position_id'=>$a+14,
+                'version_id'=>0,
+                'name'=>$ip
+            ));
+        }
     }
 }
