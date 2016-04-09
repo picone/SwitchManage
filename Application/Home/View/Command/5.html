@@ -1,1 +1,17 @@
-{$str|str_replace="\\r\\n",'<br/>',###}
+<php>
+    $length=count($log)-1;
+    $replace=array(
+        'SHELL/5/LOGIN: VTY login from'=>'登录',
+        'SHELL/5/LOGOUT: VTY logout from'=>'登出',
+        'L2INF/5/PORT LINK STATUS CHANGE'=>'端口状态改变',
+        'turns into DOWN state'=>'端口关闭',
+        'turns into UP state'=>'端口打开'
+    );
+</php>
+<ul class="list-group">
+    <for start="$length" end="0" comparison="egt" step="-1">
+        <li class="list-group-item">
+            {$log[$i]|strtr=###,$replace}
+        </li>
+    </for>
+</ul>

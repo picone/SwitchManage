@@ -30,7 +30,7 @@
                 <td>{$input_packets[$key]>0?round($input_error[$key]/($input_error[$key]+$input_packets[$key])*100,2):0}</td>
                 <td>{$output_packets[$key]}</td>
                 <td>{$output_error[$key]}</td>
-                <td>{$output_packets[$key]>0?round($output_error[$key]/($output_error[$key]+$output_packets[$key])*100):0}</td>
+                <td>{$output_packets[$key]>0?round($output_error[$key]/($output_error[$key]+$output_packets[$key])*100,2):0}</td>
              <td></td>
             </tr>
         </foreach>

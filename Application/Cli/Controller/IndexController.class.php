@@ -53,38 +53,34 @@ class IndexController extends \Think\Controller{
         }else if($data=='ResetTelnet'){//重置所有telnet链接
 
         }else{
-            //$server->sendMessage($data,$server->worker_id-1);
+            $server->sendMessage($data,$server->worker_id-1);
             $data=json_decode($data,true);
             if($data['act']=='Telnet'&&isset($data['ip'])&&isset($data['cmd'])){//执行命令
                 $service=TelnetEvent::getService($data['ip']);
                 if($service==null){
                     $result['code']=2;
                 }else{
-                    if(isset($data['arg'])){
-                        $result['data']=$service->exec($data['cmd'],$data['arg']);
+                    if($data['cmd']>0){
+                        if(isset($data['arg'])){
+                            $result['data']=$service->exec($data['cmd'],$data['arg']);
+                        }else{
+                            $result['data']=$service->exec($data['cmd']);
+                        }
+                        if($result==null||$result['data']==null){
+                            $result=['code'=>3];
+                        }else{
+                            $result['code']=1;
+                        }
                     }else{
-                        $result['data']=$service->exec($data['cmd']);
-                    }
-                    if($result==null||$result['data']==null){
-                        $result=['code'=>3];
-                    }else{
-                        $result['code']=1;
-                    }
-                }
-                $server->send($fd,json_encode($result),$from_id);
-                //$server->sendMessage(json_encode($result),$server->worker_id-1);
-            }else if($data['act']=='TestConnect'&&isset($data['ip'])){
-                $service=TelnetEvent::getService($data['ip']);
-                if($service==null){
-                    $result['code']=2;
-                }else{
-                    if($service->getSwitch()->isConnect()){
-                        $result['code']=1;
-                    }else{
-                        $result['code']=3;
+                        if($service->getSwitch()->isConnect()){
+                            $result['code']=1;
+                        }else{
+                            $result['code']=3;
+                        }
                     }
                 }
                 $server->send($fd,json_encode($result),$from_id);
+                $server->sendMessage(json_encode($result),$server->worker_id-1);
             }else{
                 $server->send($fd,'unknown command!',$from_id);
             }

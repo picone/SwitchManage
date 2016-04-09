@@ -43,6 +43,12 @@ class Switch_1_Service extends SwitchBaseService{
      */
     public function getLog(){
         $data=$this->switch->exec('display logbuffer');
-        return ['str'=>$data];
+        $res=array();
+        //除去more,端口之间的换行
+        $data=str_replace("\r\n  ---- More ----\x1b[42D                                          \x1b[42D",'',$data);
+        $data=str_replace("\n\r",'',$data);
+        preg_match_all('/%(.*?)[\\r\n|%]/',$data,$res['log']);
+        $res['log']=$res['log'][1];
+        return $res;
     }
 }
