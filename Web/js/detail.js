@@ -20,9 +20,12 @@ $(function () {
                 //alert("4");
                 toPage(4);
                 break;
+            case "5":
+                toPage(5);
+                break;
         }
 
-    })
+    });
     function toPage(num) {
         var url = "/index.php/Manage/command/ip/" + ip +
             "/cmd/" + num;
@@ -43,5 +46,5 @@ $(function () {
                 return false;
             }
         });
-    };
+    }
 });

@@ -2,10 +2,23 @@
     $length=count($log)-1;
     $replace=array(
         'SHELL/5/LOGIN: VTY login from'=>'登录',
+        'SHELL/5/SHELL_LOGIN: VTY logged in from'=>'登录',
+        'SHELL/5/LOGIN'=>'登录',
         'SHELL/5/LOGOUT: VTY logout from'=>'登出',
+        'SHELL/5/SHELL_LOGOUT: VTY logged out from'=>'登出',
+        'SHELL/5/LOGOUT'=>'登出',
         'L2INF/5/PORT LINK STATUS CHANGE'=>'端口状态改变',
+        'IFNET/3/LINK_UPDOWN'=>'端口状态改变',
         'turns into DOWN state'=>'端口关闭',
-        'turns into UP state'=>'端口打开'
+        'link status is DOWN'=>'端口关闭',
+        'turns into UP state'=>'端口打开',
+        'link status is UP'=>'端口打开',
+        'SHELL/6/SHELL_CMD'=>'执行命令',
+        'SHELL/5/CMD:- 1 -task'=>'执行命令',
+        '-Task=vt0-IPAddr'=>'终端IP',
+        'User got online successfully'=>'用户认证上线成功',
+        'Addr'=>'地址',
+        'Fan 1 failed'=>'风扇1异常'
     );
 </php>
 <ul class="list-group">
