@@ -14,7 +14,7 @@ class Switch_2_Service extends SwitchBaseService{
      * 重启交换机
      */
     public function reboot(){
-        // TODO: Implement reboot() method.
+        
     }
 
     /**

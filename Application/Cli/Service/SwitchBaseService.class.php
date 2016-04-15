@@ -27,7 +27,6 @@ abstract class SwitchBaseService{
         if(preg_match('/Total (\d+) connection/',$data,$match)){
             $result['online_list_count']=intval($match[1]);
         }
-        echo $data;
         if(preg_match_all('/(\w+)@system\\r\\n.*?(\w{4}\-\w{4}\-\w{4}).*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(N\/A)/',$data,$match)){
             array_shift($match);
             $result['online_list']=$match;
