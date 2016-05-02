@@ -27,9 +27,12 @@ abstract class SwitchBaseService{
         if(preg_match('/Total (\d+) connection/',$data,$match)){
             $result['online_list_count']=intval($match[1]);
         }
-        if(preg_match_all('/(\w+)@system\\r\\n.*?(\w{4}\-\w{4}\-\w{4}).*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(N\/A)/',$data,$match)){
-            array_shift($match);
-            $result['online_list']=$match;
+        if(preg_match_all('/(\w+)@system[\w\W]*?(\w{4}\-\w{4}\-\w{4}).*?((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(N\/A))/',$data,$match)){
+            $result['online_list']=array(
+                $match[1],
+                $match[2],
+                $match[3]
+            );
         }
         $result['version']=D('Device')->getVersion(ip2long($this->switch->getIp()));
         return $result;

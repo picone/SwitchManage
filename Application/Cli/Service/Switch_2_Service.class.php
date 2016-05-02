@@ -18,6 +18,33 @@ class Switch_2_Service extends SwitchBaseService{
     }
 
     /**
+     * 获取交换机启动时间,负载,在线用户量
+     * @return array
+     */
+    public function getInfo(){
+        $result=array();
+        if(preg_match('/uptime is (.*?)\\r\\n/',$this->switch->exec('display version'),$match)){
+            $result['uptime']=$match[1];
+        }
+        if(preg_match('/(\d+)% in last 5 seconds/',$this->switch->exec('display cpu'),$match)){
+            $result['cpu']=intval($match[1]);
+        }
+        $data=$this->switch->exec('display connection');
+        if(preg_match('/Total (\d+) connection/',$data,$match)){
+            $result['online_list_count']=intval($match[1]);
+        }
+        if(preg_match_all('/(\w+)@system\\r\\n.*?((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(N\/A))[\w\W]*?(\w{4}\-\w{4}\-\w{4})/',$data,$match)){
+            $result['online_list']=array(
+                $match[1],
+                $match[5],
+                $match[2]
+            );
+        }
+        $result['version']=D('Device')->getVersion(ip2long($this->switch->getIp()));
+        return $result;
+    }
+
+    /**
      * 获取端口概况
      * @return mixed
      */
