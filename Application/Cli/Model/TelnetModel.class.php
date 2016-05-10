@@ -114,7 +114,7 @@ class TelnetModel{
     public function exec($cmd){
         $result='';
         $c=0;
-        fputs($this->socket,$cmd."\r");
+        $this->command($cmd);
         do{
             $data=$this->getBuffer();
             $result.=$data;
@@ -126,6 +126,10 @@ class TelnetModel{
             $c++;
         }while($c<5000);
         return $result;
+    }
+    
+    public function command($cmd){
+        fputs($this->socket,$cmd."\r");
     }
 
     public function getIp(){

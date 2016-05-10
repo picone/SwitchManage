@@ -35,12 +35,4 @@ class Switch_6_Service extends SwitchBaseService{
             return ['no'=>2];
         }
     }
-
-    /**
-     * 获取日志
-     * @return array
-     */
-    public function getLog(){
-        // TODO: Implement getLog() method.
-    }
 }

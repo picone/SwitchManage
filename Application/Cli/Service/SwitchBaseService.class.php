@@ -27,9 +27,12 @@ abstract class SwitchBaseService{
         if(preg_match('/Total (\d+) connection/',$data,$match)){
             $result['online_list_count']=intval($match[1]);
         }
-        if(preg_match_all('/(\w+)@system\\r\\n.*?(\w{4}\-\w{4}\-\w{4}).*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/',$data,$match)){
-            array_shift($match);
-            $result['online_list']=$match;
+        if(preg_match_all('/(\w+)@system[\w\W]*?(\w{4}\-\w{4}\-\w{4}).*?((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|(N\/A))/',$data,$match)){
+            $result['online_list']=array(
+                $match[1],
+                $match[2],
+                $match[3]
+            );
         }
         $result['version']=D('Device')->getVersion(ip2long($this->switch->getIp()));
         return $result;
@@ -91,7 +94,17 @@ abstract class SwitchBaseService{
      * 获取日志
      * @return array
      */
-    abstract public function getLog();
+    public function getLog(){
+        $data=$this->switch->exec('display logbuffer');
+        $res=array();
+        //除去more,端口之间的换行
+        $data=str_replace("\r\n  ---- More ----\x1b[42D                                          \x1b[42D",'',$data);
+        echo $data;
+        $data=preg_replace('/\- 1 \-[\w\W]*?(Ethernet|Gigabit|Fan|VTY)/','$1',$data);
+        preg_match_all('/%(.*?)[\\r\n|%]/',$data,$res['log']);
+        $res['log']=$res['log'][1];
+        return $res;
+    }
 
     /**
      * 重启交换机

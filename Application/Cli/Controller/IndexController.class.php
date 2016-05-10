@@ -72,6 +72,7 @@ class IndexController extends \Think\Controller{
                             $result['code']=1;
                         }
                     }else{
+                        $service->getSwitch()->connect();
                         if($service->getSwitch()->isConnect()){
                             $result['code']=1;
                         }else{
