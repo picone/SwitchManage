@@ -2,12 +2,13 @@
 namespace Home\Controller;
 class ManageController extends PublicController{
 
-    public function index(){
+    public function index($ip = 0, $cmd = 0, $int = null)
+    {
         $this->display();
-    }
+        if ($ip != null) {
+            $this->detail($ip, $cmd, $int);
 
-    public function tree(){
-        $this->display();
+        }
     }
 
     public function detail($ip,$cmd,$int=null){
@@ -21,7 +22,7 @@ class ManageController extends PublicController{
                 $this->assign('data',$data['data']);
                 $this->assign('cmd',$cmd);
                 $this->assign('ip',$ip);
-                $this->display();
+                $this->display('Manage:detail');
                 break;
             case 2:
                 $this->error('暂不支持操作该交换机');
@@ -47,6 +48,11 @@ class ManageController extends PublicController{
         } while ($c-- > 0 && !isset($data['code']));
         $client->close();
         return $data;
+    }
+
+    public function tree()
+    {
+        $this->display();
     }
     
     public function getTree(){

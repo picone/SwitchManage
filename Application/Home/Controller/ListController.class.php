@@ -17,7 +17,7 @@ class ListController extends PublicController{
         if($ip==0){
             $this->ajaxReturn(6);
         }else{
-            $data=D('History')->fetchIp($ip,1800);
+            $data = D('History')->fetchIp($ip, 43200);
             if(isset($data[0])){
                 $this->ajaxReturn(0,$data);
             }else{
