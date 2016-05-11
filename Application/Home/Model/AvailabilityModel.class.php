@@ -13,4 +13,8 @@ class AvailabilityModel extends \Think\Model{
             'availability'=>array('lt',1)
         ))->group('dateline')->order('dateline')->select();
     }
+
+    public function fetchDownList($time){
+        return $this->field('device_view.position_name,device_view.ip,device_name,availability')->join('device_view ON device_view.ip=availability.ip')->where('dateline=%d AND availability<1',$time)->order('availability')->select();
+    }
 }

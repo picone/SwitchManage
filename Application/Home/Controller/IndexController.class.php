@@ -15,7 +15,22 @@ class IndexController extends PublicController{
         foreach($data as &$val){
             $val['dateline']='周'.$tmp[date('w',$val['dateline'])];
         }
-        
         $this->ajaxReturn(1,$data);
+    }
+
+    public function detail($day){
+        $tmp=[
+            '日'=>'Sun',
+            '一'=>'Mon',
+            '二'=>'Tue',
+            '三'=>'Wed',
+            '四'=>'Thur',
+            '五'=>'Fri',
+            '六'=>'Sat'
+        ];
+        $time=strtotime('last '.$tmp[$day]);
+        $this->assign('data',D('Availability')->fetchDownList($time));
+        $this->assign('time',$time);
+        $this->display();
     }
 }
