@@ -15,6 +15,7 @@ class IndexController extends PublicController{
         foreach($data as &$val){
             $val['dateline']='周'.$tmp[date('w',$val['dateline'])];
         }
+        
         $this->ajaxReturn(1,$data);
     }
 }

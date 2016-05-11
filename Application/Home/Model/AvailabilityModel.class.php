@@ -9,8 +9,8 @@ class AvailabilityModel extends \Think\Model{
 
     public function availability(){
         return $this->field('COUNT(ip) AS num,dateline')->where(array(
-            'dateline'=>array('gt','unix_timestamp(curdate()-INTERVAL 7 DAY)'),
+            'dateline'=>array('exp','>unix_timestamp(curdate()-INTERVAL 7 DAY)'),
             'availability'=>array('lt',1)
-        ))->group('dateline')->select();
+        ))->group('dateline')->order('dateline')->select();
     }
 }
