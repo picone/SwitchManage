@@ -29,6 +29,7 @@ class IndexController extends PublicController{
             '六'=>'Sat'
         ];
         $time=strtotime('last '.$tmp[$day]);
+        $time=strtotime('00:00:00',$time);
         $this->assign('data',D('Availability')->fetchDownList($time));
         $this->assign('time',$time);
         $this->display();
