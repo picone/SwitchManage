@@ -2,75 +2,25 @@
 <block name="title">交换机管理</block>
 <block name="extern_css">
     <link rel="stylesheet" href="__PUBLIC__/css/nav.css"/>
+    <link rel="stylesheet" href="__PUBLIC__/css/left-nav.css"/>
     <link rel="stylesheet" href="__PUBLIC__/css/bootstrap-treeview.min.css">
 </block>
-<block name="nav"><include file="Public:nav"/></block>
-<block name="container">
-    <div class="content">
-        <ul class="breadcrumb">
-            <li><a href="#">交换机管理</a> <span class="divider">/</span></li>
-        </ul>
-        <!--面包屑-->
-        <a class="pull-right" href="__APP__/{$Think.CONTROLLER_NAME}/btnview">切换到图标视图</a>
-
-        <div class="row">
-            <hr>
-            <!--<h2>Checkable Tree</h2>-->
-            <div class="col-sm-4">
-                <h2>搜索</h2>
-                <hr/>
-                <div class="form-group">
-                    <label for="search" class="sr-only">Search Tree:</label>
-                    <input type="input" class="form-control" id="search" placeholder="Identify node...">
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-4 col-xs-4">
-                        <button type="button" class="btn btn-default btn-wait-search">
-                            <span class="glyphicon glyphicon-search"></span>
-                            查找
-                        </button>
-                    </div>
-                    <div class="form-group col-sm-4 col-xs-4"><!--搜索辅助工具栏-->
-                        <button type="button" class="btn btn-primary btn-wait-search" id="btn-cResult">选中结果</button>
-                    </div>
-                    <div class="form-group col-sm-4 col-xs-4">
-                        <button type="button" class="btn btn-primary btn-wait-search" id="btn-uncResult">反选结果</button>
-                    </div>
-                </div>
-                <hr/>
-            </div>
-            <div class="col-sm-4">
-                <h2>交换机列表</h2>
-                <hr/>
-                <div class="row  visible-xs">
-                    <div class="form-group col-xs-4 col-sm-6"><!--小屏辅助工具栏-->
-                        <button type="button" class="btn btn-danger nodeToggle" id="btn-expand">展开</button>
-                    </div>
-                    <div class="form-group col-xs-4 col-sm-6">
-                        <button type="button" class="btn btn-primary nodeToggle" id="btn-collapse">缩起</button>
-                    </div>
-                    <div class="form-group col-sm-12 col-xs-4">
-                        <button type="button" class="btn btn-primary" id="btn-uncheakall">清除</button>
-                    </div>
-                    <hr>
-                </div>
-                <div id="listTree" class=""></div>
-                <div class="row">
-                    <div class="col-sm-2 col-sm-offset-5">
-                        <a class="btn btn-info" id="btn-wait-select" href="#">下一步</a>
-                    </div>
-                </div>
-                <!--树-->
-            </div>
-            <div class="col-sm-4">
-                <h2>已选中</h2>
-                <hr/>
-                <div id="checkable-output"></div>
-            </div>
+<block name="nav">
+    <include file="Public:nav"/>
+</block>
+<block name="left_nav">
+    <div class="left_nav show-left_nav" id="left_nav">
+        <div class="left-nav-main">
+            <div id="listTree" class="left_nav_tree"></div>
         </div>
+        <!--树-->
+        <div class="collapse_btn" id="left_nav_btn"><span class="glyphicon glyphicon-chevron-left"></span></div>
     </div>
+</block>
+<block name="container">
+    <div id="contentCmd"></div>
 </block>
 <block name="extern_js">
     <script type="text/javascript" src="__PUBLIC__/js/bootstrap-treeview.min.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/js/switchmanage-treeview.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/local-switchmanage-treeview.js"></script>
 </block>

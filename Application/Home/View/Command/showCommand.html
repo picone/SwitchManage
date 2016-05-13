@@ -5,3 +5,30 @@
         >{$val.name}</option>
     </foreach>
 </select>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="selIntModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                  选择接口
+                </h4>
+            </div>
+            <div class="modal-body">
+                    <div id="selInt">
+                        <label for="intList">需要操作的端口</label>
+                        <label class="pull-right">
+                        </label>
+                        <select class="form-control" id="intList" multiple size="20">
+                        </select>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">
+                    确定
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

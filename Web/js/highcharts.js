@@ -366,6 +366,7 @@
         year: 314496E5
     };
     B.numberFormat = function (a, b, c, d) {
+        if(a==-1) return "无法ping通";
         var a = +a || 0, e = N.lang, f = (a.toString().split(".")[1] || "").length, g, h, i = Math.abs(a);
         b === -1 ? b = Math.min(f, 20) : isNaN(b) && (b = 2);
         g = String(C(i.toFixed(b)));
