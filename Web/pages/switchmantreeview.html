@@ -8,12 +8,11 @@
     <script type="text/javascript" src="../js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.js"></script>
     <script type="text/javascript" src="../js/bootstrap-treeview.min.js"></script>
-    <script type="text/javascript" src="../js/local-switchmanage-treeview.js"></script>
+    <script type="text/javascript" src="../js/switchmanage-treeview.js"></script>
     <!--css-->
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/bootstrap-treeview.min.css">
     <link rel="stylesheet" href="../css/nav.css"/>
-    <link rel="stylesheet" href="../css/treeview.css"/>
 </head>
 <body>
 <!--top sidebar begin-->
@@ -47,30 +46,63 @@
     </div>
 </nav>
 <!--top sidebar end-->
-
-
-<div class="menu" id="testMenu">
-    <div id="listTree" class=""></div>
-    <!--树-->
-</div>
 <div class="content">
-
-    <!--<ul class="breadcrumb">
-        &lt;!&ndash;<li><a href="index.html">首页</a> <span class="divider">/</span></li>&ndash;&gt;
+    <ul class="breadcrumb">
+        <!--<li><a href="index.html">首页</a> <span class="divider">/</span></li>-->
         <li><a href="switchlist.html">交换机批量管理</a> <span class="divider">/</span></li>
-    </ul>-->
+    </ul>
     <!--面包屑-->
-    <a class="pull-right" id="testBtn">切换到图标视图</a>
+    <a class="pull-right" href="switchmanage.html">切换到图标视图</a>
 
     <div class="row">
         <hr>
-
         <!--<h2>Checkable Tree</h2>-->
         <div class="col-sm-4">
             <h2>搜索</h2>
             <hr/>
+            <div class="form-group">
+                <label for="search" class="sr-only">Search Tree:</label>
+                <input type="input" class="form-control" id="search" placeholder="Identify node...">
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4 col-xs-4">
+                    <button type="button" class="btn btn-default btn-wait-search">
+                        <span class="glyphicon glyphicon-search"></span>
+                        查找
+                    </button>
+                </div>
+                <div class="form-group col-sm-4 col-xs-4"><!--搜索辅助工具栏-->
+                    <button type="button" class="btn btn-primary btn-wait-search" id="btn-cResult">选中结果</button>
+                </div>
+                <div class="form-group col-sm-4 col-xs-4">
+                    <button type="button" class="btn btn-primary btn-wait-search" id="btn-uncResult">反选结果</button>
+                </div>
+            </div>
+            <hr/>
         </div>
-
+        <div class="col-sm-4">
+            <h2>交换机列表</h2>
+            <hr/>
+            <div class="row  visible-xs">
+                <div class="form-group col-xs-4 col-sm-6"><!--小屏辅助工具栏-->
+                    <button type="button" class="btn btn-danger" id="btn-checkonselect">勾选当前项</button>
+                </div>
+                <div class="form-group col-xs-4 col-sm-6">
+                    <button type="button" class="btn btn-primary" id="btn-uncheckonselect">取消当前项</button>
+                </div>
+                <div class="form-group col-sm-12 col-xs-4">
+                    <button type="button" class="btn btn-primary" id="btn-uncheakall">清除所有</button>
+                </div>
+                <hr>
+            </div>
+            <div id="listTree" class=""></div>
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-5">
+                    <a class="btn btn-info" id="btn-wait-select" href="{$Think.CONTROLLER_NAME}/singelmanage.html">下一步</a>
+                </div>
+            </div>
+            <!--树-->
+        </div>
         <div class="col-sm-4">
             <h2>已选中</h2>
             <hr/>

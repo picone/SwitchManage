@@ -21,7 +21,7 @@
 
                         <div class="collapse" id="position{$positionId}">
                             <foreach name="position" item="val">
-                                <a class="list-group-item" href="#" name="ipList" data-ip="{$val.ip}" >
+                                <a class="list-group-item" href="#" name="ipList" data-ip="{$val.ip}">
                                     {$val.name}
                                     <if condition="$val.status egt 0">
                                         <span class="badge alert-success">up</span>
@@ -40,42 +40,12 @@
                     </foreach>
                 </div>
             </div>
-<!--暂时测试效果-->
-            <div class="col-xs-12 col-sm-6" id="showChart">
-                <h2>图表显示</h2>
-                <hr>
+
+            <div class="col-xs-12 col-sm-6">
                 <div id="pingChart"></div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close"
-                            data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        图表显示
-                    </h4>
-                </div>
-                <div class="modal-body">
-
-                    <div id="pingChartModal"></div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default"
-                            data-dismiss="modal">关闭
-                    </button>
-                    <button type="button" class="btn btn-default" id="testbtn"
-                    >测试
-                    </button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
 </block>
 <block name="extern_js">
     <script type="text/javascript" src="__PUBLIC__/js/highcharts.js"></script>

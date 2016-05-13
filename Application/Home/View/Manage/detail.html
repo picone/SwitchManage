@@ -1,11 +1,17 @@
+<extend name="Public:base"/>
+<block name="title">首页</block>
+<block name="extern_css">
+    <link rel="stylesheet" href="__PUBLIC__/css/nav.css"/>
+</block>
+<block name="nav"><include file="Public:nav"/></block>
 <block name="container">
-    <div class="content" id="cmdDetail">
+    <div class="content">
         <ul class="breadcrumb">
-            <li>交换机列表</li>
-            <li>{$Think.get.ip|long2ip}</li>
+            <li><a href="__APP__/{$Think.CONTROLLER_NAME}">交换机列表</a></li>
+            <li><a href="#">{$Think.get.ip|long2ip}
+            </a></li>
         </ul>
         <hr>
-        <h4>选择要执行的操作</h4>
         {:W('Command/showCommand')}
         <hr/>
         <div class="container-fluid" id="result">
@@ -16,4 +22,3 @@
 <block name="extern_js">
     <script type="text/javascript" src="__PUBLIC__/js/detail.js"></script>
 </block>
-<!--命令界面 包含所有部件-->

@@ -1,0 +1,27 @@
+<extend name="Public:base"/>
+<block name="title">首页</block>
+<block name="extern_css">
+    <link rel="stylesheet" href="__PUBLIC__/css/nav.css"/>
+</block>
+<block name="nav"><include file="Public:nav"/></block>
+<block name="container">
+    <div class="content">
+        <ul class="breadcrumb">
+            <li><a href="__APP__/{$Think.CONTROLLER_NAME}">交换机列表</a> <span class="divider">/</span> <a href="#">{$Think.get.ip|long2ip}</a></li>
+        </ul>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#" data-toggle="tab">日</a>
+            </li>
+            <li>
+                <a href="#" data-toggle="tab">月</a>
+            </li>
+            <li>
+                <a href="#" data-toggle="tab">年</a>
+            </li>
+        </ul>
+    </div>
+</block>
+<block name="extern_js">
+    <script type="text/javascript" src="__PUBLIC__/js/highcharts.js"></script>
+</block>

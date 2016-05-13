@@ -39,7 +39,7 @@ class ManageController extends PublicController{
     {
         $cmd['act'] = 'Telnet';
         $client = new \swoole_client(SWOOLE_TCP, SWOOLE_SYNC);
-        if (!$client->connect(C('SERVICE_IP'), C('SERVICE_PORT'), 10) || !$client->send(json_encode($cmd))) return false;
+        if (!$client->connect(C('SERVICE_IP'), C('SERVICE_PORT'), 1) || !$client->send(json_encode($cmd))) return false;
         $c = 5;
         $str = '';
         do {

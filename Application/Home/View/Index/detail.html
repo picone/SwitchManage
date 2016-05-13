@@ -1,0 +1,35 @@
+<extend name="Public:base"/>
+<block name="title">首页</block>
+<block name="extern_css">
+    <link rel="stylesheet" href="__PUBLIC__/css/nav.css"/>
+</block>
+<block name="nav"><include file="Public:nav"/></block>
+<block name="container">
+    <div class="content">
+        <ul class="breadcrumb">
+            <li><a href="#">首页</a><span class="divider">/</span></li>
+        </ul>
+        <table class="table">
+            <caption>{$time|date='Y-m-d',###}宕机列表</caption>
+            <thead>
+            <tr>
+                <th>楼栋</th>
+                <th>IP</th>
+                <th>可用性</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="data" item="val">
+                <tr>
+                    <td>{$val.position_name}</td>
+                    <td>{$val.ip|long2ip}[{$val.device_name}]</td>
+                    <td>{$val['availability']*100}%</td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+    </div>
+</block>
+<block name="extern_js">
+
+</block>

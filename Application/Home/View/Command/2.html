@@ -1,72 +1,39 @@
-<div class="row">
-    <foreach name="int.0" item="val">
-        <div class="col-sm-6 col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <table class="table table-condensed">
-                        <tbody>
-                        <tr>
-                            <th>接口名</th>
-                            <td>{$val}</td>
-                        </tr>
-                        <tr>
-                            <th>状态</th>
-                            <td>{$int[1][$key]}</td>
-                        </tr>
-
-                        <tr>
-                            <th>5分钟内接收包速率</th>
-                            <td>{$speed_input[0][$key]}</td>
-                        </tr>
-                        <tr>
-                            <th>5分钟内接收速率</th>
-                            <td>{$speed_input[1][$key]|byte_format}</td>
-                        </tr>
-                        <tr>
-                            <th>5分钟内发送包速率</th>
-                            <td>{$speed_output[0][$key]}</td>
-                        </tr>
-                        <tr>
-                            <th>5分钟内发送速率
-                            <td>{$speed_output[1][$key]|byte_format}</td>
-
-                        </tr>
-                        <tr>
-                            <th>输入包数</th>
-                            <td>{$input_packets[$key]}</td>
-                        </tr>
-
-                        <tr>
-                            <th>输入包错误数</th>
-                            <td>{$input_error[$key]}</td>
-                        </tr>
-                        <tr>
-                            <th>输入错包率</th>
-                            <td>
-                                {$input_packets[$key]>0?round($input_error[$key]/($input_error[$key]+$input_packets[$key])*100,2):0}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>输出包数</th>
-                            <td>{$output_packets[$key]}</td>
-                        </tr>
-
-                        <tr>
-                            <th>输出包错误数</th>
-                            <td>{$output_error[$key]}</td>
-                        </tr>
-
-                        <tr>
-                            <th>丢包率</th>
-                            <td>
-                                {$output_packets[$key]>0?round($output_error[$key]/($output_error[$key]+$output_packets[$key])*100,2):0}
-                            </td>
-                        </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </foreach>
+<div class="table-responsive">
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>接口名</th>
+            <th>状态</th>
+            <th>5分钟内接收包速率</th>
+            <th>5分钟内接收速率</th>
+            <th>5分钟内发送包速率</th>
+            <th>5分钟内发送速率</th>
+            <th>输入包数</th>
+            <th>输入包错误数</th>
+            <th>输入错包率</th>
+             <th>输出包数</th>
+             <th>输出包错误数</th>
+             <th>丢包率</th>
+        </tr>
+        </thead>
+        <tbody>
+        <foreach name="int.0" item="val">
+            <tr>
+                <td>{$val}</td>
+                <td>{$int[1][$key]}</td>
+                <td>{$speed_input[0][$key]}</td>
+                <td>{$speed_input[1][$key]|byte_format}</td>
+                <td>{$speed_output[0][$key]}</td>
+                <td>{$speed_output[1][$key]|byte_format}</td>
+                <td>{$input_packets[$key]}</td>
+                <td>{$input_error[$key]}</td>
+                <td>{$input_packets[$key]>0?round($input_error[$key]/($input_error[$key]+$input_packets[$key])*100,2):0}</td>
+                <td>{$output_packets[$key]}</td>
+                <td>{$output_error[$key]}</td>
+                <td>{$output_packets[$key]>0?round($output_error[$key]/($output_error[$key]+$output_packets[$key])*100,2):0}</td>
+             <td></td>
+            </tr>
+        </foreach>
+        </tbody>
+    </table>
 </div>
