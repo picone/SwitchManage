@@ -1,5 +1,6 @@
 <?php
 namespace Home\Controller;
+use \Common\Library\Vendor\Ping;
 class ManageController extends PublicController{
 
     public function index($ip=null){
@@ -106,5 +107,10 @@ class ManageController extends PublicController{
             default:
                 $this->ajaxReturn(10);
         }
+    }
+    
+    public function ping($ip){
+        Vendor('Ping','','.class.php');
+        $this->ajaxReturn(1,Ping::ping($ip));
     }
 }
