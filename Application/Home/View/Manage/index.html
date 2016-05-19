@@ -5,22 +5,6 @@
     <link rel="stylesheet" href="__PUBLIC__/css/left-nav.css"/>
     <link rel="stylesheet" href="__PUBLIC__/css/bootstrap-treeview.min.css">
 </block>
-<block name="nav">
-    <include file="Public:nav"/>
-</block>
-<block name="left_nav">
-    <div class="left_nav show-left_nav" id="left_nav">
-        <div class="left-nav-main">
-            <div id="listTree" class="left_nav_tree"></div>
-        </div>
-        <!--树-->
-        <div class="collapse_btn" id="left_nav_btn"><span class="glyphicon glyphicon-chevron-left"></span></div>
-    </div>
-</block>
 <block name="container">
-    <div id="contentCmd"></div>
-</block>
-<block name="extern_js">
-    <script type="text/javascript" src="__PUBLIC__/js/bootstrap-treeview.min.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/js/local-switchmanage-treeview.js"></script>
+    {:W('Command/showCommand')}
 </block>

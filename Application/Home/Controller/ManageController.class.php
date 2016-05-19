@@ -2,13 +2,8 @@
 namespace Home\Controller;
 class ManageController extends PublicController{
 
-    public function index($ip = 0, $cmd = 0, $int = null)
-    {
+    public function index($ip=null){
         $this->display();
-        if ($ip != null) {
-            $this->detail($ip, $cmd, $int);
-
-        }
     }
 
     public function detail($ip,$cmd,$int=null){
@@ -48,11 +43,6 @@ class ManageController extends PublicController{
         } while ($c-- > 0 && !isset($data['code']));
         $client->close();
         return $data;
-    }
-
-    public function tree()
-    {
-        $this->display();
     }
     
     public function getTree(){

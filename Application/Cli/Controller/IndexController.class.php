@@ -53,7 +53,6 @@ class IndexController extends \Think\Controller{
         }else if($data=='ResetTelnet'){//重置所有telnet链接
 
         }else{
-            $server->sendMessage($data,$server->worker_id-1);
             $data=json_decode($data,true);
             if($data['act']=='Telnet'&&isset($data['ip'])&&isset($data['cmd'])){//执行命令
                 $service=TelnetEvent::getService($data['ip']);
@@ -81,7 +80,6 @@ class IndexController extends \Think\Controller{
                     }
                 }
                 $server->send($fd,json_encode($result),$from_id);
-                $server->sendMessage(json_encode($result),$server->worker_id-1);
             }else{
                 $server->send($fd,'unknown command!',$from_id);
             }
