@@ -3,11 +3,14 @@ namespace Home\Controller;
 use \Common\Library\Vendor\Ping;
 class ManageController extends PublicController{
 
-    public function index($ip=null){
+    public function index(){
         $this->display();
     }
 
-    public function detail($ip,$cmd,$int=null){
+    public function detail(){
+        $ip=I('get.ip','');
+        $cmd=I('get.cmd',1);
+        $int=I('get.int',null);
         if($int==null)
             $data=$this->exec(array('ip'=>$ip,'cmd'=>$cmd));
         else
@@ -27,7 +30,7 @@ class ManageController extends PublicController{
                 $this->error('暂不支持该命令');
                 break;
             default:
-                $this->error('暂不能提供服务');
+                //$this->error('暂不能提供服务');
         }
     }
 
