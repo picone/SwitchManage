@@ -14,7 +14,18 @@ class Switch_5_Service extends SwitchBaseService{
      * 重启交换机
      */
     public function reboot(){
-        // TODO: Implement reboot() method.
+        $this->switch->command('reboot');
+        $str='';
+        $c=30;
+        do{
+            $str.=$this->switch->getBuffer();
+        }while(strpos($str,'[Y/N]')!==false&&$c-->0);
+        if($c>0){
+            $this->switch->command('Y');
+            return ['code'=>1];
+        }else{
+            return ['code'=>2];
+        }
     }
 
     /**

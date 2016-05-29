@@ -1,31 +1,20 @@
 <?php
 /*
- * Quidway S3026E操作模块
+ * H3C E352操作模块
  */
 namespace Cli\Service;
 use \Cli\Model\TelnetModel;
-class Switch_6_Service extends SwitchBaseService{
+class Switch_8_Service extends SwitchBaseService{
     public function __construct(TelnetModel $switch){
         parent::__construct($switch);
-        $this->version_id=6;
+        $this->version_id=8;
     }
 
     /**
      * 重启交换机
      */
     public function reboot(){
-        $this->switch->command('reboot');
-        $str='';
-        $c=30;
-        do{
-            $str.=$this->switch->getBuffer();
-        }while(strpos($str,'[Y/N]')!==false&&$c-->0);
-        if($c>0){
-            $this->switch->command('Y');
-            return ['code'=>1];
-        }else{
-            return ['code'=>2];
-        }
+        // TODO: Implement reboot() method.
     }
 
     /**
@@ -34,8 +23,9 @@ class Switch_6_Service extends SwitchBaseService{
      */
     public function getBrief(){
         $data=$this->switch->exec('display brief interface');
-        if(preg_match_all('/([EG]\d\/\d{1,2})\s+(UP|DOWN).*?(access|trunk).*?00BASE-T/',$data,$result)){
+        if(preg_match_all('/((GE|Eth)\d\/0\/\d{1,2})\s+(UP|DOWN).*?(trunk|access)/',$data,$result)){
             array_shift($result);
+            array_splice($result,1,1);
             foreach($result[2] as &$val){
                 if($val=='access')$val='A';
                 else if($val=='trunk')$val='T';

@@ -27,7 +27,6 @@ class Switch_2_Service extends SwitchBaseService{
             do{
                 $str.=$this->switch->getBuffer();
             }while(strpos($str,'[Y/N]')!==false&&$c-->0);
-            echo $str,PHP_EOL;
         }
         if($c>0){
             $this->switch->command('Y');

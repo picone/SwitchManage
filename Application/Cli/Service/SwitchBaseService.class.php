@@ -99,7 +99,6 @@ abstract class SwitchBaseService{
         $res=array();
         //除去more,端口之间的换行
         $data=str_replace("\r\n  ---- More ----\x1b[42D                                          \x1b[42D",'',$data);
-        echo $data;
         $data=preg_replace('/\- 1 \-[\w\W]*?(Ethernet|Gigabit|Fan|VTY)/','$1',$data);
         preg_match_all('/%(.*?)[\\r\n|%]/',$data,$res['log']);
         $res['log']=$res['log'][1];
