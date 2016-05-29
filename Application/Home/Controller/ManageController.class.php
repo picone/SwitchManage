@@ -30,7 +30,7 @@ class ManageController extends PublicController{
                 $this->error('暂不支持该命令');
                 break;
             default:
-                //$this->error('暂不能提供服务');
+                $this->error('暂不能提供服务');
         }
     }
 
