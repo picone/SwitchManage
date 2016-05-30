@@ -8,7 +8,7 @@ namespace Common\Library\Vendor;
  */
 class Ping{
     public static function ping($ip){
-        exec('ping -c1 -w1000 '.long2ip($ip),$result,$status);//转换一次整型,防止恶意攻击
+        exec('ping -c1 -W1 '.long2ip($ip),$result,$status);
         $result=implode("\n",$result);
         if(preg_match('/time\=([\d\.]+) ms/',$result,$match)){
             return $match[1];
