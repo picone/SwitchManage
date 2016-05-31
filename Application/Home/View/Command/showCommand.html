@@ -1,10 +1,15 @@
-<select id="selCmd" class="form-control" name="{$ip}">
-    <foreach name="data" item="val">
-        <option value="{$val.id}" data-int="{$val['arg_type']==0?0:1}"
-        <eq name="val.id" value="$cmd">selected="selected"</eq>
-        >{$val.name}</option>
-    </foreach>
-</select>
+<div class="row">
+    <div class="col-xs-8 col-sm-10">
+        <select id="selCmd" class="form-control" name="{$ip}">
+            <foreach name="data" item="val">
+                <option value="{$val.id}" data-int="{$val['arg_type']==0?0:1}"
+                <eq name="val.id" value="$cmd">selected="selected"</eq>
+                >{$val.name}</option>
+            </foreach>
+        </select>
+    </div>
+    <button class="btn btn-default col-xs-2" type="button" id="selCmd_btn">确定</button>
+</div>
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="selIntModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
@@ -25,7 +30,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" id="intList_btn">
                     确定
                 </button>
             </div>
