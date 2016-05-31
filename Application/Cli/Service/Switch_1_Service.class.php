@@ -15,14 +15,14 @@ class Switch_1_Service extends SwitchBaseService{
      * 重启交换机
      */
     public function reboot(){
-        $this->enterView('comm');
         //由于没有device_name出现,不能使用exec
         $this->switch->command('reboot');
+        sleep(3);
         $str='';
         $c=30;
         do{
             $str.=$this->switch->getBuffer();
-        }while(strpos($str,'[Y/N]')!==false&&$c-->0);
+        }while(strpos($str,'[Y/N]')===false&&$c-->0);
         if($c>0){
             $this->switch->command('Y');
             return ['code'=>1];

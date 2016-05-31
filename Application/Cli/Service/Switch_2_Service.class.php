@@ -15,18 +15,19 @@ class Switch_2_Service extends SwitchBaseService{
      */
     public function reboot(){
         $this->switch->command('reboot');
+        sleep(3);
         $str='';
         $c=30;
         do{
             $str.=$this->switch->getBuffer();
-        }while(strpos($str,'[Y/N]')!==false&&$c-->0);
+        }while(strpos($str,'[Y/N]')===false&&$c-->0);
         if(strpos($str,'save current configuration')!==false){
             $this->switch->command('Y');
             $str='';
             $c=30;
             do{
                 $str.=$this->switch->getBuffer();
-            }while(strpos($str,'[Y/N]')!==false&&$c-->0);
+            }while(strpos($str,'[Y/N]')===false&&$c-->0);
         }
         if($c>0){
             $this->switch->command('Y');
