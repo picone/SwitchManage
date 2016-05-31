@@ -1,7 +1,7 @@
 <div class="row">
     <foreach name="int.0" item="val">
         <div class="col-sm-6 col-md-4">
-            <div class="panel panel-default">
+            <div class="panel panel-default int_info">
                 <div class="panel-body">
                     <table class="table table-condensed">
                         <tbody>
@@ -42,7 +42,7 @@
                         </tr>
                         <tr>
                             <th>输入错包率</th>
-                            <td>
+                            <td name="in_error_pac">
                                 {$input_packets[$key]>0?round($input_error[$key]/($input_error[$key]+$input_packets[$key])*100,2):0}
                             </td>
                         </tr>
@@ -57,8 +57,8 @@
                         </tr>
 
                         <tr>
-                            <th>丢包率</th>
-                            <td>
+                            <th>输出错包率</th>
+                            <td name="out_error_pac">
                                 {$output_packets[$key]>0?round($output_error[$key]/($output_error[$key]+$output_packets[$key])*100,2):0}
                             </td>
                         </tr>
@@ -70,3 +70,12 @@
         </div>
     </foreach>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $(".int_info").each(function (i) {
+            var out = $(this).find("td[name='out_error_pac']").text();
+            var input = $(this).find("td[name='in_error_pac']").text();
+            if (out > 0.3 || input > 0.3)$(this).attr('style', "background:rgb(255, 194, 194)");
+        })
+    })
+</script>
