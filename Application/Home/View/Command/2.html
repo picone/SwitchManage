@@ -42,7 +42,7 @@
                         </tr>
                         <tr>
                             <th>输入错包率</th>
-                            <td>
+                            <td name="in_error_pac">
                                 {$input_packets[$key]>0?round($input_error[$key]/($input_error[$key]+$input_packets[$key])*100,2):0}
                             </td>
                         </tr>
@@ -57,8 +57,8 @@
                         </tr>
 
                         <tr>
-                            <th>丢包率</th>
-                            <td name="error_pac">
+                            <th>输出错包率</th>
+                            <td name="out_error_pac">
                                 {$output_packets[$key]>0?round($output_error[$key]/($output_error[$key]+$output_packets[$key])*100,2):0}
                             </td>
                         </tr>
@@ -73,8 +73,9 @@
 <script type="text/javascript">
     $(function () {
         $(".int_info").each(function (i) {
-            var num = $(this).find("td[name='error_pac']").text();
-            if (num > 60)$(this).attr('style', "background:rgb(255, 194, 194)");
+            var out = $(this).find("td[name='out_error_pac']").text();
+            var input = $(this).find("td[name='in_error_pac']").text();
+            if (out > 0.3 || input > 0.3)$(this).attr('style', "background:rgb(255, 194, 194)");
         })
     })
 </script>
