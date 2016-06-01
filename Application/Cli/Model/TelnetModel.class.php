@@ -120,7 +120,7 @@ class TelnetModel{
             $result.=$data;
             if(strpos($data,'---- More ----')!==false){
                 fputs($this->socket,chr(32));
-            }else if(strpos($data,'<'.$this->device_name.'>')!==false||strpos($data,'['.$this->device_name.']')!==false){
+            }else if(strpos($data,'<'.$this->device_name)!==false||strpos($data,'['.$this->device_name)!==false){
                 break;
             }
             $c++;

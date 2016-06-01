@@ -111,12 +111,31 @@ abstract class SwitchBaseService{
     public abstract function reboot();
 
     /**
+     * 关闭端口
+     * @param string $interface 端口
+     * @return array
+     */
+    public function shutdown($interface){
+        echo $this->switch->exec('system');
+        echo $this->switch->exec('interface '.$interface);
+        echo $this->switch->exec('shutdown');
+        echo $this->switch->exec('quit');
+        echo $this->switch->exec('quit');
+        return ['code'=>1];
+    }
+
+    /**
      * 取消端口关闭
      * @param $interface
+     * @return array
      */
     public function unShutdown($interface){
-        $this->enterView($interface);
-        $data=$this->switch->exec('undo shutdown');
+        $this->switch->exec('system');
+        $this->switch->exec('interface '.$interface);
+        $this->switch->exec('undo shutdown');
+        $this->switch->exec('quit');
+        $this->switch->exec('quit');
+        return ['code'=>1];
     }
 
     /**
@@ -124,8 +143,11 @@ abstract class SwitchBaseService{
      * @param $interface
      */
     public function dot1x($interface){
-        $this->enterView($interface);
-        $data=$this->switch->exec('dot1x');
+        $this->switch->exec('system');
+        $this->switch->exec('interface '.$interface);
+        $this->switch->exec('dot1x');
+        $this->switch->exec('quit');
+        $this->switch->exec('quit');
     }
 
     /**
@@ -139,6 +161,7 @@ abstract class SwitchBaseService{
     /**
      * 执行命令
      * @param $command_id
+     * @param null $arg
      * @return mixed
      */
     public function exec($command_id,$arg=null){
@@ -157,38 +180,5 @@ abstract class SwitchBaseService{
     
     public function getSwitch(){
         return $this->switch;
-    }
-
-    /**
-     * 切换视图
-     * @param string $view 视图名称
-     */
-    protected function enterView($view){
-        //$this->switch->
-        if($view!==$this->switch->cur_view){
-            switch($view){
-                case 'comm':{//进入普通视图
-                    $this->switch->exec('quit');
-                    if($this->switch->cur_view!='sys'){
-                        $this->switch->exec('quit');
-                    }
-                    break;
-                }
-                case 'sys':{//进入系统视图
-                    if($this->switch->cur_view=='comm'){
-                        $this->switch->exec('system-view');
-                    }else{
-                        $this->switch->exec('quit');
-                    }
-                    break;
-                }
-                default:{//进入特定端口视图
-                    if($this->switch->cur_view=='comm'){
-                        $this->switch->exec('system-view');
-                    }
-                    $this->switch->exec('interface '.$view);
-                }
-            }
-        }
     }
 }

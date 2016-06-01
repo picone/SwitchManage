@@ -18,6 +18,10 @@ class UserModel extends \Think\Model{
         }
     }
 
+    public function changePassword($id,$password){
+        return $this->where('id=%d',$id)->setField('password',$this->calculate_password($password));
+    }
+
     private function calculate_password($password){
         return md5(C('MD5_KEY').md5($password));
     }

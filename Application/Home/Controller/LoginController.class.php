@@ -1,5 +1,7 @@
 <?php
 namespace Home\Controller;
+use Think\Exception;
+
 class LoginController extends PublicController{
     public function index(){
         $this->display();
@@ -34,5 +36,22 @@ class LoginController extends PublicController{
         session('user_id',null);
         session('username',null);
         $this->success('将跳转到登录界面...','index');
+    }
+
+    public function changePassword(){
+        if(IS_POST){
+            $password=I('post.password');
+            if(empty($password))$this->ajaxReturn(11);
+            try{
+                if(D('User')->changePassword($GLOBALS['user_id'],$password)){
+                    session(null);
+                    $this->ajaxReturn(1);
+                }else{
+                    $this->ajaxReturn(13);
+                }
+            }catch(Exception $e){
+                $this->ajaxReturn(12);
+            }
+        }
     }
 }
