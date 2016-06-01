@@ -3,7 +3,7 @@ namespace Common\Model;
 class CommandModel extends \Think\Model{
     protected $tableName='command';
     protected $fields=array(
-        'id','key_','name','command','arg_type','version_id','description','permission'
+        'id','display_order','key_','name','command','arg_type','version_id','description','permission'
     );
     protected $pk='id';
     protected $autoinc=true;
@@ -17,7 +17,7 @@ class CommandModel extends \Think\Model{
         if(!D('Permission')->checkPermission($user_id,$ip)){
             $model=$model->where('permission=0');
         }
-        return $model->select();
+        return $model->order('display_order DESC,id')->select();
 
     }
     
