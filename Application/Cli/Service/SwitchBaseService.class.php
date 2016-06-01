@@ -116,11 +116,11 @@ abstract class SwitchBaseService{
      * @return array
      */
     public function shutdown($interface){
-        echo $this->switch->exec('system');
-        echo $this->switch->exec('interface '.$interface);
-        echo $this->switch->exec('shutdown');
-        echo $this->switch->exec('quit');
-        echo $this->switch->exec('quit');
+        $this->switch->exec('system');
+        $this->switch->exec('interface '.$interface);
+        $this->switch->exec('shutdown');
+        $this->switch->exec('quit');
+        $this->switch->exec('quit');
         return ['code'=>1];
     }
 
@@ -141,13 +141,19 @@ abstract class SwitchBaseService{
     /**
      * 为端口增加dot1x认证
      * @param $interface
+     * @return array
      */
     public function dot1x($interface){
         $this->switch->exec('system');
         $this->switch->exec('interface '.$interface);
-        $this->switch->exec('dot1x');
+        $data=$this->switch->exec('dot1x');
         $this->switch->exec('quit');
         $this->switch->exec('quit');
+        if(strpos($data,'802.1x is enabled')==false){
+            return ['code'=>2];
+        }else{
+            return ['code'=>1];
+        }
     }
 
     /**
