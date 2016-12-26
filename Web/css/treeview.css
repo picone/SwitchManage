@@ -1,0 +1,120 @@
+/*Menu*/
+/*小屏xs*/
+@media (max-width: 767px){
+    .menu{
+        width: 100%;
+    }
+}
+/*中屏sm*/
+@media (min-width: 768px){
+    .menu{
+        width: 41.66%;
+    }
+}/*大屏md*/
+@media (min-width: 992px){
+    .menu{
+        width: 33.33%;
+    }
+}
+.menu{
+    margin-top: 51px;
+    position: fixed;
+    min-height: 100%;
+    z-index: 1001;
+    transform: translate3d(-95%,0,0);
+    transition: transform 0.4s;
+}
+.menu_tree{
+    position: absolute;
+    width: 95%;
+    height: 100%;
+    overflow-y: auto;
+}
+.show-menu{
+    transform: translate3d(0,0,0);
+    transition: transform 0.4s;
+}
+/*menu_btn*/
+/*左导航按钮位置*/
+.collapse_btn{
+    width: 5%;
+    height:100%;
+    position: absolute;
+    float: left;
+    left: 95%;
+    cursor: pointer;
+    /*border: 1px dashed;*/
+}
+/*左导航按钮样式*/
+.collapse_btn{
+    background-image: -webkit-linear-gradient(left,color-stop(rgba(0,0,0,0.0001) 0),color-stop(rgba(0,0,0,0.1) 100%));
+    background-image: linear-gradient(to right,rgba(0,0,0,0.0001) 0,rgba(0,0,0,0.1) 100%);
+}
+.collapse_btn:hover{
+    opacity: 0.8;
+}
+.collapse_btn span{
+    position: fixed;
+    top: 50%;
+
+}
+
+/* Shown menu *//*
+
+.show-menu .menu-wrap {
+    transform: translate3d(0,0,0);
+    transition: transform 0.8s;
+    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+.show-menu .icon-list,
+.show-menu .icon-list a {
+    */
+/*-webkit-transform: translate3d(0,0,0);*//*
+
+    transform: translate3d(0,0,0);
+    */
+/*-webkit-transition: -webkit-transform 0.8s;*//*
+
+    transition: transform 0.8s;
+    */
+/*-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);*//*
+
+    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+.show-menu .icon-list a {
+    */
+/*-webkit-transition-duration: 0.9s;*//*
+
+    transition-duration: 0.9s;
+}
+
+.show-menu .content::before {
+    opacity: 1;
+    -webkit-transition: opacity 0.8s;
+    transition: opacity 0.8s;
+    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+*/
+/* Menu *//*
+
+.menu-wrap {
+    position: absolute;
+    z-index: 1001;
+    width: 300px;
+    height: 100%;
+    background: #373a47;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+    -webkit-transform: translate3d(-320px,0,0);
+    transform: translate3d(-320px,0,0);
+    -webkit-transition: -webkit-transform 0.4s;
+    transition: transform 0.4s;
+    -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}*/

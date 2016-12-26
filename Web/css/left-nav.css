@@ -1,0 +1,64 @@
+/*left_nav*/
+/*小屏xs*/
+@media (max-width: 767px){
+    .left_nav{
+        width: 100%;
+    }
+}
+/*中屏sm*/
+@media (min-width: 768px){
+    .left_nav{
+        width: 41.66%;
+    }
+}/*大屏md*/
+@media (min-width: 992px){
+    .left_nav{
+        width: 33.33%;
+    }
+}
+.left_nav{
+    margin-top: 51px;
+    position: fixed;
+    min-height: 100%;
+    z-index: 1001;
+    transform: translate3d(-95%,0,0);
+    -webkit-transform:translate3d(-95%,0,0); ;
+    transition: transform 0.4s;
+    -webkit-transition: -webkit-transform 0.8s;
+}
+.left_nav_tree{
+    position: absolute;
+    width: 95%;
+    height: 100%;
+    overflow-y: auto;
+}
+.show-left_nav{
+    transform: translate3d(0,0,0);
+    -webkit-transform:translate3d(0,0,0);
+    transition: transform 0.4s;
+    -webkit-transition: -webkit-transform 0.8s;
+}
+/*menu_btn*/
+/*左导航按钮位置*/
+.collapse_btn{
+    width: 5%;
+    height:100%;
+    position: absolute;
+    float: left;
+    left: 95%;
+    cursor: pointer;
+    /*border: 1px dashed;*/
+}
+/*左导航按钮样式*/
+.collapse_btn{
+    background-image: -webkit-linear-gradient(left,color-stop(rgba(0,0,0,0.0001) 0),color-stop(rgba(0,0,0,0.1) 100%));
+    background-image: linear-gradient(to right,rgba(0,0,0,0.0001) 0,rgba(0,0,0,0.1) 100%);
+}
+.collapse_btn:hover{
+    opacity: 0.8;
+}
+.collapse_btn span{
+    /*position: fixed;*/
+    top: 50%;
+
+}

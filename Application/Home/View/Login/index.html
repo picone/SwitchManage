@@ -2,6 +2,24 @@
 <block name="title">系统登录</block>
 <block name="extern_css">
     <link rel="stylesheet" href="__PUBLIC__/css/login.css"/>
+    <style type="text/css">
+        @media (min-width: 992px) {
+            .footer {
+                position: absolute;
+            }
+        }
+
+        .footer {
+            bottom: 0;
+            width: 100%;
+            height: 28px;
+            background: #0983C0;
+            clear: both;
+            color: white;
+            text-align: center;
+            font-size: 15px;
+        }
+    </style>
 </block>
 <block name="container">
     <div class="row">
@@ -15,10 +33,12 @@
                     <div id="login-result"></div>
                     <form class="form-horizontal" role="form" action="__APP__/Login/login" id="form" method="post">
                         <div class="form-group">
-                            <input type="text" id="username" name="username" class="form-control" placeholder="用户名" required>
+                            <input type="text" id="username" name="username" class="form-control" placeholder="用户名"
+                                   required>
                         </div>
                         <div class="form-group">
-                            <input type="password" id="password" name="password" class="form-control" placeholder="密码" required>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="密码"
+                                   required>
                         </div>
                         <!-- <div class="form-group">
                              <input type="text" id="verify_code" name="verify_code" class="form-control" placeholder="验证码">
@@ -43,6 +63,9 @@
     </div>
 </block>
 <block name="extern_js">
+    <div class="footer" style="">
+        <b>广东工业大学‘数字校园’学生科技项目</b>
+    </div>
     <script type="text/javascript" src="__PUBLIC__/js/jquery.ajaxform.min.js"></script>
     <script type="text/javascript" src="__PUBLIC__/js/login.js"></script>
 </block>
