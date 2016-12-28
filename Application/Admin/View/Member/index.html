@@ -1,0 +1,39 @@
+<extend name="Public:base"/>
+<block name="container">
+    <div class="content">
+        <div>
+            <a href="__URL__/edit" class="btn btn-success">添加成员</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>用户名</th>
+                    <th>真实姓名</th>
+                    <th>用户组</th>
+                    <th>最后登录时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <foreach name="member" item="val">
+                    <tr>
+                        <td>{$val.id}</td>
+                        <td>{$val.username}</td>
+                        <td>{$val.real_name}</td>
+                        <td>{$val.role}</td>
+                        <td>{$val.last_login_time}</td>
+                        <td>
+                            <a href="__APP__/Log" class="btn btn-primary">操作日志</a>
+                            <a href="__URL__/device/id/{$val.id}" class="btn btn-primary">可操作交换机</a>
+                            <a href="__URL__/edit/id/{$val.id}" class="btn btn-primary">编辑</a>
+                        </td>
+                    </tr>
+                </foreach>
+                </tbody>
+            </table>
+            <div class="text-center">{$page}</div>
+        </div>
+    </div>
+</block>

@@ -1,0 +1,17 @@
+<extend name="Public:base"/>
+<block name="container">
+    <div class="content">
+        <form method="post">
+            <div class="row">
+                <foreach name="position" item="val">
+                    <div class="col-sm-2 col-xs-3">
+                        <label><input type="checkbox" name="position[]" value="{$val.id}" <if condition="in_array($val['id'],$permission)">checked</if>>&nbsp;{$val.name}</label>
+                    </div>
+                </foreach>
+            </div>
+            <div class="row">
+                <button class="btn btn-primary">保存</button>
+            </div>
+        </form>
+    </div>
+</block>
