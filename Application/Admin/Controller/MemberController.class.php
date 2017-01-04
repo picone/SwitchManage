@@ -6,7 +6,7 @@ use Common\Library\Vendor\Page;
 class MemberController extends PublicController{
 
     public function index(){
-        $page=new Page(D('User')->count(),2);
+        $page=new Page(D('User')->count());
         $member=D('UserView')->limit($page->firstRow,$page->listRows)->select();
         $this->assign('member',$member);
         $this->assign('page',$page->show());
@@ -33,11 +33,22 @@ class MemberController extends PublicController{
             if(!$data){
                 $this->error(D('User')->getError());
             }
-            if(!empty(I('post.password'))){
+            if(empty(I('post.password'))){
+                unset($data['password']);
+            }else{
                 $data['password']=D('User')->calculate_password(I('post.password'));
             }
-            $data->save();
-            $this->success('保存成功','index');
+            if($id==0){
+                $id=D('User')->add($data);
+            }else{
+                D('User')->save($data);
+            }
+            if($id>0){
+                D('UserRoleUser')->add(array('role_id'=>I('post.role_id/d'),'user_id'=>$id),array(),true);
+                $this->success('保存成功',__APP__.'/Member');
+            }else{
+                $this->error('保存失败');
+            }
         }else{
             if($id>0){
                 $this->assign('data',D('User')->relation(true)->find($id));

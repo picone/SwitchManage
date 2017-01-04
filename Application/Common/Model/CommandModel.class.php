@@ -7,6 +7,12 @@ class CommandModel extends \Think\Model{
     );
     protected $pk='id';
     protected $autoinc=true;
+    protected $_scope = array(
+        'select'=>array(
+            'field'=>'id,name',
+            'order'=>'display_order DESC'
+        )
+    );
 
     public function getKey($id){
         return $this->cache(true)->field('key_')->where('id=%d',$id)->find()['key_'];

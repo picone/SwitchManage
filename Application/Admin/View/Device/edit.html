@@ -1,0 +1,34 @@
+<extend name="Public:base"/>
+<block name="container">
+    <div class="content">
+        <form method="post">
+            <div class="form-group">
+                <label for="position_id" class="control-label">位置</label>
+                <select name="position_id" id="position_id" class="form-control">
+                    <foreach name="position" item="val">
+                        <option value="{$val.id}" <if condition="$data['position_id'] eq $val['id']">selected</if>>{$val.name}</option>
+                    </foreach>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name" class="control-label">名称</label>
+                <input type="text" name="name" id="name" value="{$data.name}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="ip" class="control-label">管理IP</label>
+                <input type="text" name="ip" id="ip" value="{$data.ip|long2ip}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="version_id">型号</label>
+                <select name="version_id" id="version_id" class="form-control">
+                    <foreach name="version" item="val">
+                        <option value="{$val.id}" <if condition="$val['id'] eq $data['version_id']">selected</if>>{$val.version}</option>
+                    </foreach>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">保存</button>
+            <a href="javascript:history.back();" class="btn btn-warning">取消</a>
+            <button type="reset" class="btn btn-default">重置</button>
+        </form>
+    </div>
+</block>

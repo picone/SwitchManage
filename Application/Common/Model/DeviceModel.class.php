@@ -6,6 +6,15 @@ class DeviceModel extends \Think\Model{
         'ip','position_id','version_id','name','val','update_time'
     );
     protected $pk='ip';
+    protected $_auto = array(
+        array('ip','ip2long',self::MODEL_BOTH,'function'),
+    );
+    protected $_validate = array(
+        array('ip','require','请填写正确的IP地址'),
+        array('position_id','require','请选择位置'),
+        array('version_id','require','请选择型号'),
+        array('name','require','请输入名字')
+    );
 
     public function fetchAll(){
         return $this->field('ip')->select();

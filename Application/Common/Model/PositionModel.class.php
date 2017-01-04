@@ -10,4 +10,10 @@ class PositionModel extends Model{
     );
     protected $pk='id';
     protected $autoinc=true;
+
+    protected $_scope = array(
+        'select'=>array(
+            'order'=>'id'
+        )
+    );
 }

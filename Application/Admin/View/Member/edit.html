@@ -2,6 +2,9 @@
 <block name="container">
     <div class="content">
         <form method="post">
+            <notempty name="Think.GET.id">
+                <input type="hidden" name="id" value="{$Think.GET.id}">
+            </notempty>
             <div class="form-group">
                 <label for="username" class="control-label">用户名</label>
                 <input type="text" name="username" id="username" value="{$data.username}" class="form-control" required>
@@ -20,10 +23,10 @@
                 <label><input type="radio" name="can_login" value="0" {$data['can_login']==0?'checked':''}>&nbsp;否</label>
             </div>
             <div class="form-group">
-                <label for="role" class="control-label">用户组</label>
-                <select name="role" id="role" class="form-control">
+                <label for="role_id" class="control-label">用户组</label>
+                <select name="role_id" id="role_id" class="form-control">
                     <volist name="role" id="val">
-                        <option value="{$val.id}" {$val['id']==$data['role_id']?'checked':''}>{$val.name}</option>
+                        <option value="{$val.id}" {$val['id']==$data['role_id']?'selected':''}>{$val.name}</option>
                     </volist>
                 </select>
             </div>

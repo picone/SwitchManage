@@ -25,7 +25,7 @@
                         <td>{$val.role}</td>
                         <td>{$val.last_login_time}</td>
                         <td>
-                            <a href="__APP__/Log" class="btn btn-primary">操作日志</a>
+                            <a href="__APP__/Log?username={$val.username}" class="btn btn-primary">操作日志</a>
                             <a href="__URL__/device/id/{$val.id}" class="btn btn-primary">可操作交换机</a>
                             <a href="__URL__/edit/id/{$val.id}" class="btn btn-primary">编辑</a>
                         </td>

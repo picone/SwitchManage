@@ -8,6 +8,12 @@ class DeviceVersionModel extends \Think\Model{
     protected $pk='id';
     protected $autoinc='id';
 
+    protected $_scope = array(
+        'select'=>array(
+            'order'=>'id'
+        )
+    );
+
     public function insert($version){
         return $this->add(array(
             'version'=>$version

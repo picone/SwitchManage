@@ -16,7 +16,7 @@ class VariablesBehavior extends \Think\Behavior{
             $GLOBALS['real_name']=$_SESSION['real_name'];
         }else{//未登录
             if(!$this->checkAccess()){
-                redirect(C('USER_AUTH_GATEWAY'));
+                redirect(__APP__.'/Login');
             }
         }
     }

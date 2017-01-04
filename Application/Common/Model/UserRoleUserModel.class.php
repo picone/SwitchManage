@@ -9,4 +9,5 @@ class UserRoleUserModel extends Model{
     protected $fields=array(
         'role_id','user_id'
     );
+    protected $pk=array('role_id','user_id');
 }

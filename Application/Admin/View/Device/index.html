@@ -1,0 +1,56 @@
+<extend name="Public:base"/>
+<block name="container">
+    <div class="content">
+        <div class="row">
+            <a href="__URL__/edit" class="btn btn-success">新增</a>
+            <div class="pull-right">
+                <form>
+                    <div class="col-xs-6">
+                        <label for="position">位置</label>
+                    </div>
+                    <div class="col-xs-6">
+                        <select name="position" id="position" class="form-control">
+                            <option value="0">全部</option>
+                            <foreach name="position" item="val">
+                                <option value="{$val.id}" <if condition="$_GET['position'] eq $val['id']">selected</if>>{$val.name}</option>
+                            </foreach>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>位置</th>
+                    <th>名称</th>
+                    <th>IP</th>
+                    <th>型号</th>
+                    <th>ping值</th>
+                    <th>上次活跃时间</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <foreach name="data" item="val">
+                    <tr>
+                        <td>{$val.position_name}</td>
+                        <td>{$val.device_name}</td>
+                        <td>{$val.ip|long2ip}</td>
+                        <td>{$val.version_name}</td>
+                        <td>{$val.val}</td>
+                        <td>{$val.update_time|date='Y-m-d H:i:s',###}</td>
+                        <td>
+                            <a href="__APP__/Log?ip={$val.ip|long2ip}" class="btn btn-primary">操作日志</a>
+                            <a href="__URL__/edit/id/{$val.ip}" class="btn btn-primary">编辑</a>
+                            <a href="__URL__/delete/id/{$val.ip}" class="btn btn-danger">删除</a>
+                        </td>
+                    </tr>
+                </foreach>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center">{$page}</div>
+    </div>
+</block>

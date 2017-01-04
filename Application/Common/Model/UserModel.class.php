@@ -5,25 +5,17 @@ use Think\Model\RelationModel;
 class UserModel extends RelationModel{
     protected $tableName='user';
     protected $fields=array(
-        'id','username','password','real_name','last_login_time'
+        'id','username','password','real_name','last_login_time','can_login'
     );
     protected $pk='id';
     protected $autoinc=true;
-
-    protected $_link=array(
-        'UserRoleUser'=>array(
-            'mapping_type'=>self::HAS_ONE,
-            'foreign_key'=>'user_id',
-            'as_fields'=>'role_id'
-        )
-    );
 
     protected $_auto=array(
         array('password','calculate_password',self::MODEL_BOTH,'callback')
     );
 
     protected $_validate=array(
-        array('username',self::MUST_VALIDATE,'用户名已存在','unique')
+        array('username','','用户名已存在',self::MUST_VALIDATE,'unique',self::MODEL_INSERT)
     );
 
     public function checkPassword($username,$password){
@@ -46,7 +38,7 @@ class UserModel extends RelationModel{
         ));
     }
 
-    protected function calculate_password($password){
+    public function calculate_password($password){
         return md5(C('MD5_KEY').md5($password));
     }
 }

@@ -3,7 +3,7 @@ namespace Common\Model;
 class DeviceViewModel extends \Think\Model{
     protected $tableName='device_view';
     protected $fields=array(
-        'ip','position_id','position_name','device_name','val','update_time'
+        'ip','position_id','version_id','position_name','device_name','version_name','val','update_time'
     );
     protected $pk='ip';
 

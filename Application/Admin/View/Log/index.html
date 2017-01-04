@@ -1,0 +1,48 @@
+<extend name="Public:base"/>
+<block name="container">
+    <div class="content">
+        <div class="row">
+            <form>
+                <label>用户名:<input type="text" name="username" value="{$Think.GET.username}"></label>
+                <Label>交换机IP:<input type="text" name="ip" value="{$Think.GET.ip}"></Label>
+                <label for="command">命令</label>
+                <select name="command" id="command">
+                    <option value="0">全部</option>
+                    <foreach name="command" item="val">
+                        <option value="{$val.id}" <if condition="$val['id'] eq $_GET['command']">selected</if>>{$val.name}</option>
+                    </foreach>
+                </select>
+                <button class="btn btn-success">搜索</button>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>用户名</th>
+                    <th>交换机名称</th>
+                    <th>交换机IP</th>
+                    <th>操作命令</th>
+                    <th>操作端口</th>
+                    <th>操作参数</th>
+                    <th>操作时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <foreach name="data" item="val">
+                    <tr>
+                        <td><a href="__URL__?username={$val.username}">{$val.username}</a></td>
+                        <td>{$val.device_name}</td>
+                        <td>{$val.ip|long2ip}</td>
+                        <td>{$val.command_name}</td>
+                        <td>{$val.interface}</td>
+                        <td>{$val.arg}</td>
+                        <td>{$val.create_time|date='Y-m-d H:i:s',###}</td>
+                    </tr>
+                </foreach>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center">{$page}</div>
+    </div>
+</block>
