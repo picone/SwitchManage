@@ -40,7 +40,7 @@
                         <td>{$val.device_name}</td>
                         <td>{$val.ip|long2ip}</td>
                         <td>{$val.version_name}</td>
-                        <td>{$val.val}</td>
+                        <td>{$val['val']==-1?'不通':$val['val']}</td>
                         <td>{$val.update_time|date='Y-m-d H:i:s',###}</td>
                         <td>
                             <a href="__APP__/Log?ip={$val.ip|long2ip}" class="btn btn-primary">操作日志</a>
